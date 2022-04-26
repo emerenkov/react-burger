@@ -9,7 +9,7 @@ ReactDOM.render(
   <React.StrictMode>
     <App />
     <Button type="primary" size="medium">
-      Я кнопка из UI системы Yandex
+      Я кнопка из UI системы Yandex111
     </Button>
   </React.StrictMode>,
   document.getElementById('root')
