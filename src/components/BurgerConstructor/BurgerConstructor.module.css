@@ -1,0 +1,7 @@
+.section {
+    width: 600px;
+    min-height: 100px;
+    max-height: 912px;
+    outline: 1px solid deepskyblue ;
+    background-color: #3B3748;
+}

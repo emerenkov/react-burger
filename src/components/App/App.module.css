@@ -1,0 +1,16 @@
+.app {
+    margin: 0 auto;
+    padding: 0;
+    max-width: 2000px;
+    max-height: 1080px;
+    color: #ffffff;
+    background-color: #131316;
+}
+
+.main {
+    margin: 0 auto;
+    padding: 0;
+    width: 1280px;
+    display: flex;
+    justify-content: center;
+}
