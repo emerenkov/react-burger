@@ -5,7 +5,7 @@
     align-items: flex-end;
     width: 600px;
     box-sizing: border-box;
-    outline: 1px solid deepskyblue ;
+    /*outline: 1px solid deepskyblue ;*/
     height: calc(100vh - 160px);
 }
 

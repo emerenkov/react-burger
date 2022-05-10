@@ -1,10 +1,10 @@
 import React from "react";
 import {ConstructorElement, DragIcon} from "@ya.praktikum/react-developer-burger-ui-components";
-import ConstructorStyle from './Constructor.module.css'
+import ConstructorStyle from './BurgerItem.module.css'
 import PropTypes from 'prop-types';
 
 
-const Constructor = (props) => {
+const BurgerItem = (props) => {
     return (
         <>
         <li className={ConstructorStyle.items}>
@@ -19,12 +19,10 @@ const Constructor = (props) => {
     )
 }
 
-Constructor.propTypes = {
-    ingredient: PropTypes.shape({
+BurgerItem.propTypes = {
         image_mobile: PropTypes.string.isRequired,
         price: PropTypes.number.isRequired,
         name: PropTypes.string.isRequired
-    }).isRequired
 };
 
-export default Constructor;
+export default BurgerItem;

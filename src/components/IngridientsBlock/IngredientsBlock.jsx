@@ -1,7 +1,7 @@
 import React from 'react';
 // import {  } from '@ya.praktikum/react-developer-burger-ui-components';
 import IngredientsBlockStyle from './IngridientsBlock.module.css';
-import Ingredients from "../Ingredients/Ingredients";
+import Ingredient from "../Ingredient/Ingredient";
 import top from '../../utils/data';
 import PropTypes from 'prop-types';
 
@@ -14,7 +14,7 @@ const ConstructorBlock = (props) => {
                     pt-8 text text_type_main-default`}>{props.text}</h2>
             <ul className={`${IngredientsBlockStyle.columns} pl-1`}>
                 {newArr.map(element => (
-                    <Ingredients key={element._id} {...element}/>
+                    <Ingredient key={element._id} {...element}/>
                 ))}
             </ul>
         </div>
