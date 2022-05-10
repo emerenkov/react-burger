@@ -4,6 +4,7 @@ import IngredientsBlockStyle from './IngridientsBlock.module.css';
 import Ingredient from "../Ingredient/Ingredient";
 import top from '../../utils/data';
 import PropTypes from 'prop-types';
+import types from "../../utils/types";
 
 
 const ConstructorBlock = (props) => {
@@ -21,7 +22,6 @@ const ConstructorBlock = (props) => {
     )
 }
 ConstructorBlock.propTypes = {
-    type: PropTypes.string.isRequired,
-    text: PropTypes.string.isRequired,
+    props: PropTypes.arrayOf(types.isRequired)
 }
 export default ConstructorBlock;

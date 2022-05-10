@@ -2,7 +2,7 @@ import React from 'react';
 import { Tab } from '@ya.praktikum/react-developer-burger-ui-components';
 import burgerIngredientsStyles from './BurgerIngredients.module.css';
 import IngredientsBlock from "../IngridientsBlock/IngredientsBlock";
-import types from "../../utils/types";
+import categories from "../../utils/categories";
 
 
 const BurgerIngredients = () => {
@@ -31,7 +31,7 @@ const BurgerIngredients = () => {
                 </a>
                 </div>
             <article className={burgerIngredientsStyles.article} >
-                {types.map(e => (
+                {categories.map(e => (
                 <IngredientsBlock key={e.type} type={e.type} text={e.text}/>
                     ))}
             </article>

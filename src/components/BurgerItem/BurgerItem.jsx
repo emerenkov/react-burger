@@ -2,6 +2,7 @@ import React from "react";
 import {ConstructorElement, DragIcon} from "@ya.praktikum/react-developer-burger-ui-components";
 import ConstructorStyle from './BurgerItem.module.css'
 import PropTypes from 'prop-types';
+import types from '../../utils/types.js'
 
 
 const BurgerItem = (props) => {
@@ -20,9 +21,7 @@ const BurgerItem = (props) => {
 }
 
 BurgerItem.propTypes = {
-        image_mobile: PropTypes.string.isRequired,
-        price: PropTypes.number.isRequired,
-        name: PropTypes.string.isRequired
-};
+    props: PropTypes.arrayOf(types.isRequired)
+}
 
 export default BurgerItem;

@@ -3,7 +3,6 @@ import { ConstructorElement, CurrencyIcon, Button } from '@ya.praktikum/react-de
 import burgerConstructorStyles from './BurgerConstructor.module.css';
 import BurgerItem from "../BurgerItem/BurgerItem";
 import data from '../../utils/data.js';
-import types from '../../utils/types.js';
 
 
 const BurgerConstructor = () => {
