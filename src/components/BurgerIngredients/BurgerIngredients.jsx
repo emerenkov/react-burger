@@ -1,8 +1,8 @@
 import React from 'react';
 import { Tab } from '@ya.praktikum/react-developer-burger-ui-components';
 import burgerIngredientsStyles from './BurgerIngredients.module.css';
-import ConstructorBlock from "../ConstructorBlock/ConstructorBlock";
-
+import IngredientsBlock from "../IngridientsBlock/IngredientsBlock";
+import top from '../../utils/array';
 import categories from "../../utils/categories";
 
 
@@ -15,19 +15,25 @@ const BurgerIngredients = () => {
             </h1>
 
             <div className={`${burgerIngredientsStyles.tab} mb-2`}>
-                <Tab value="one" active={current === 'one'} onClick={setCurrent}>
-                    Булки
-                </Tab>
-                <Tab value="two" active={current === 'two'} onClick={setCurrent}>
-                    Соусы
-                </Tab>
-                <Tab value="three" active={current === 'three'} onClick={setCurrent}>
-                    Начинки
-                </Tab>
-            </div>
-            <article >
+                <a className={burgerIngredientsStyles.link} href="#bun">
+                    <Tab value="bun" active={current === 'bun'} onClick={setCurrent}>
+                        Булки
+                    </Tab>
+                </a>
+                <a className={burgerIngredientsStyles.link} href="#sauce">
+                    <Tab value="sauce" active={current === 'sauce'} onClick={setCurrent}>
+                        Соусы
+                    </Tab>
+                </a>
+                <a className={burgerIngredientsStyles.link} href="#main">
+                    <Tab value="main" active={current === 'main'} onClick={setCurrent}>
+                        Начинки
+                    </Tab>
+                </a>
+                </div>
+            <article className={burgerIngredientsStyles.article} >
                 {categories.map(e => (
-                <ConstructorBlock key={e.type} type={e.type} text={e.text}/>
+                <IngredientsBlock key={e.type} type={e.type} text={e.text}/>
                     ))}
             </article>
         </section>

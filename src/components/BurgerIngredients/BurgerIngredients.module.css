@@ -1,9 +1,9 @@
 .section {
     width: 600px;
     box-sizing: border-box;
-    max-height: 912px;
+    /*height: 912px;*/
     outline: 1px solid greenyellow;
-
+    z-index: 1;
 }
 
 .title {
@@ -16,4 +16,26 @@
 
 .tab {
     display: flex;
+}
+
+.link{
+    all: unset;
+}
+
+.article {
+    width: 600px;
+    height: calc(100vh - 324px);
+    min-height: 208px;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+.article::-webkit-scrollbar {
+    width: 8px;
+    background: #2F2F37;
+
+}
+
+.article::-webkit-scrollbar-thumb {
+    background: #8585AD;
 }
