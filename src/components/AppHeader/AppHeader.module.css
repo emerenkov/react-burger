@@ -1,0 +1,44 @@
+.header {
+    padding: 0;
+    max-width: 1920px;
+    width: 100%;
+    background: #1C1C21;
+    box-sizing: border-box;
+}
+
+.navigation {
+    box-sizing: border-box;
+    margin:0 auto;
+    /*padding: 0;*/
+    max-width: 1280px;
+    width: 100%;
+}
+
+.menu {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    display: grid;
+    grid-template-columns: max-content max-content max-content max-content;
+    /*justify-items: start;*/
+    align-items: center;
+}
+
+
+
+.item {
+
+    list-style-type: none;
+}
+
+.links {
+    display: flex;
+    text-decoration: none;
+    align-items: center;
+    cursor: pointer;
+    color: #8585AD;
+}
+
+.links:active {
+    color: #fff;
+}
