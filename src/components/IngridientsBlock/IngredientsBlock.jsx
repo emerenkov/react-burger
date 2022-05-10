@@ -2,7 +2,7 @@ import React from 'react';
 // import {  } from '@ya.praktikum/react-developer-burger-ui-components';
 import IngredientsBlockStyle from './IngridientsBlock.module.css';
 import Ingredients from "../Ingredients/Ingredients";
-import top from '../../utils/array';
+import top from '../../utils/data';
 import PropTypes from 'prop-types';
 
 

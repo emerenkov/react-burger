@@ -6,7 +6,6 @@
     width: 600px;
     box-sizing: border-box;
     outline: 1px solid deepskyblue ;
-    background-color: #3B3748;
     height: calc(100vh - 160px);
 }
 

@@ -2,7 +2,6 @@ import React from 'react';
 import { Tab } from '@ya.praktikum/react-developer-burger-ui-components';
 import burgerIngredientsStyles from './BurgerIngredients.module.css';
 import IngredientsBlock from "../IngridientsBlock/IngredientsBlock";
-import top from '../../utils/array';
 import categories from "../../utils/categories";
 
 

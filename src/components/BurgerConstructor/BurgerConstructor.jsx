@@ -2,9 +2,11 @@ import React from 'react';
 import { ConstructorElement, CurrencyIcon, Button } from '@ya.praktikum/react-developer-burger-ui-components';
 import burgerConstructorStyles from './BurgerConstructor.module.css';
 import Constructor from "../Constructor/Constructor";
+import data from '../../utils/data.js'
 
 
 const BurgerConstructor = () => {
+    const snack = data.filter(el => (el.type !== 'bun'));
     return(
         <section className={`${burgerConstructorStyles.section} pt-25 pl-4 ml-5`}>
             <div className={`${burgerConstructorStyles.block} mr-4 `}>
@@ -17,7 +19,9 @@ const BurgerConstructor = () => {
                 />
             </div>
                 <ul className={`${burgerConstructorStyles.list} mr-1 pr-1`}>
-                    <Constructor />
+                    {snack.map(element => (
+                        <Constructor key={element._id} {...element}/>
+                    ))}
                 </ul>
             <div className={`${burgerConstructorStyles.block} mr-4 `}>
                 <ConstructorElement
