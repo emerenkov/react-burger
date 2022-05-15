@@ -2,7 +2,6 @@ import React from 'react';
 import IngredientsBlockStyle from './IngridientsBlock.module.css';
 import Ingredient from "../Ingredient/Ingredient";
 import PropTypes from 'prop-types';
-import types from "../../utils/types";
 
 
 const ConstructorBlock = ({categories, type, openModalIngredient}) => {
@@ -23,7 +22,9 @@ const ConstructorBlock = ({categories, type, openModalIngredient}) => {
 }
 
 ConstructorBlock.propTypes = {
-    props: PropTypes.arrayOf(types.isRequired)
+    type: PropTypes.object.isRequired,
+    categories: PropTypes.array.isRequired,
+    openModalIngredient: PropTypes.func.isRequired
 }
 
 export default ConstructorBlock;

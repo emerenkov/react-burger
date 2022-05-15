@@ -12,9 +12,8 @@ import IngredientDetails from "../IngredientDetails/IngredientDetails";
 const App = () => {
 
     function getData () {
-        fetch(`${api.url}`)
+        return fetch(`${api.url}`)
             .then(parseResponse)
-            // .then((json) => console.log(json.data))
             .then((json) => {setIngredients(json.data)})
             .catch(err => {console.log(err)});
     }

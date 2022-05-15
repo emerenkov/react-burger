@@ -4,6 +4,8 @@ import burgerIngredientsStyles from './BurgerIngredients.module.css';
 import IngredientsBlock from "../IngridientsBlock/IngredientsBlock";
 import Categories from "../../utils/categories";
 import {sortItems} from "../../utils/utils";
+import PropTypes from "prop-types";
+import types from "../../utils/types";
 
 
 const BurgerIngredients = ({ ingredients, openModalIngredient }) => {
@@ -49,6 +51,11 @@ const BurgerIngredients = ({ ingredients, openModalIngredient }) => {
             </article>
         </section>
     )
+}
+
+BurgerIngredients.propTypes = {
+    ingredients: PropTypes.arrayOf(types.isRequired).isRequired,
+    openModalIngredient: PropTypes.func.isRequired
 }
 
 export default BurgerIngredients;

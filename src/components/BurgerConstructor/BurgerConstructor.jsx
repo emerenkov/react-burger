@@ -2,6 +2,8 @@ import React from 'react';
 import { ConstructorElement, CurrencyIcon, Button } from '@ya.praktikum/react-developer-burger-ui-components';
 import burgerConstructorStyles from './BurgerConstructor.module.css';
 import BurgerItem from "../BurgerItem/BurgerItem";
+import PropTypes from 'prop-types';
+import types from "../../utils/types";
 
 
 const BurgerConstructor = ({ingredients, openModalOrder}) => {
@@ -41,6 +43,10 @@ const BurgerConstructor = ({ingredients, openModalOrder}) => {
             </div>
         </section>
     )
+}
+BurgerConstructor.propTypes = {
+    ingredients: PropTypes.arrayOf(types.isRequired).isRequired,
+    openModalOrder: PropTypes.func.isRequired
 }
 
 export default BurgerConstructor;
