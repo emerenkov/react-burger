@@ -1,7 +1,16 @@
-const categories = [
-    { type: 'bun', text: 'Булки' },
-    { type: 'sauce', text: 'Соусы' },
-    { type: 'main', text: 'Начинки' },
-]
-
-export default categories;
+const Categories = {
+Bun: {
+    type: 'bun',
+    text: 'Булки',
+},
+Sauce: {
+    type: 'sauce',
+    text: 'Соусы',
+},
+Main: {
+    type: 'main',
+    text: 'Начинки'
+}
+,
+}
+export default Categories;
