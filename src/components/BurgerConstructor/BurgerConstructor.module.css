@@ -5,7 +5,8 @@
     align-items: flex-end;
     width: 600px;
     box-sizing: border-box;
-    /*outline: 1px solid deepskyblue ;*/
+
+    overflow-y: auto;
     height: calc(100vh - 160px);
 }
 
@@ -27,7 +28,6 @@
     margin: 15px 0;
 
     width: 584px;
-    /*height: calc(100vh - 324px);*/
     min-height: 208px;
     overflow-y: auto;
     overflow-x: hidden;
