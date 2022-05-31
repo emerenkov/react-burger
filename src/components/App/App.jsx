@@ -9,7 +9,7 @@ import Modal from "../Modal/Modal";
 import OrderDetails from "../OrderDetails/OrderDetails";
 import IngredientDetails from "../IngredientDetails/IngredientDetails";
 
-import { DataContext } from '../services/dataContext';
+import { DataContext } from '../../services/dataContext';
 
 const App = () => {
 

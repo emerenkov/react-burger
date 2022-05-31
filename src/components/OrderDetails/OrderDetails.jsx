@@ -1,8 +1,10 @@
 import React from 'react';
 import orderDetailsStyle from './OrderDetails.module.css';
+import PropTypes from 'prop-types';
+import types from "../../utils/types";
 
 const OrderDetails = ({orderNumber}) => {
-
+    console.log(orderNumber);
     return(
         <div className={`${orderDetailsStyle.container} pt-30 pb-30`}>
             <h2 className={`${orderDetailsStyle.titleNumbers} text text_type_digits-large`}>{orderNumber.order.number}</h2>
@@ -12,6 +14,10 @@ const OrderDetails = ({orderNumber}) => {
             <p className='text text_type_main-default text_color_inactive'>Дождитесь готовности на орбитальной станции</p>
         </div>
     )
+}
+
+OrderDetails.propTypes = {
+    orderNumber: PropTypes.number.isRequired
 }
 
 export default OrderDetails;

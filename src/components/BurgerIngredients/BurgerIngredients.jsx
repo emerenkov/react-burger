@@ -7,7 +7,7 @@ import {sortItems} from "../../utils/utils";
 import PropTypes from "prop-types";
 import types from "../../utils/types";
 
-import { DataContext } from '../services/dataContext';
+import { DataContext } from '../../services/dataContext';
 
 
 const BurgerIngredients = ({ openModalIngredient }) => {
