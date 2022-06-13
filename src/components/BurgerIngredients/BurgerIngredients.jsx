@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useContext} from 'react';
 import { Tab } from '@ya.praktikum/react-developer-burger-ui-components';
 import burgerIngredientsStyles from './BurgerIngredients.module.css';
 import IngredientsBlock from "../IngridientsBlock/IngredientsBlock";
@@ -7,8 +7,12 @@ import {sortItems} from "../../utils/utils";
 import PropTypes from "prop-types";
 import types from "../../utils/types";
 
+import { DataContext } from '../../services/dataContext';
 
-const BurgerIngredients = ({ ingredients, openModalIngredient }) => {
+
+const BurgerIngredients = ({ openModalIngredient }) => {
+
+    const { ingredients } = useContext(DataContext);
 
     const buns = sortItems(Categories.Bun.type, ingredients);
     const mains = sortItems(Categories.Main.type, ingredients);
@@ -54,7 +58,7 @@ const BurgerIngredients = ({ ingredients, openModalIngredient }) => {
 }
 
 BurgerIngredients.propTypes = {
-    ingredients: PropTypes.arrayOf(types.isRequired).isRequired,
+
     openModalIngredient: PropTypes.func.isRequired
 }
 

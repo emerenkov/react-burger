@@ -5,15 +5,15 @@ import PropTypes from 'prop-types';
 import types from '../../utils/types.js'
 
 
-const BurgerItem = (props) => {
+const BurgerItem = ({name, price, image_mobile}) => {
     return (
         <>
         <li className={ConstructorStyle.items}>
             <DragIcon type="primary" className={'pr-10'} />
             <ConstructorElement
-                text={props.name}
-                price={props.price}
-                thumbnail={props.image_mobile}
+                text={name}
+                price={price}
+                thumbnail={image_mobile}
                 />
         </li>
     </>
@@ -21,7 +21,9 @@ const BurgerItem = (props) => {
 }
 
 BurgerItem.propTypes = {
-    props: PropTypes.arrayOf(types.isRequired)
+    name: PropTypes.string.isRequired,
+    price: PropTypes.number.isRequired,
+    image_mobile: PropTypes.string.isRequired
 }
 
 export default BurgerItem;
