@@ -18,7 +18,7 @@ const BurgerConstructor = () => {
 
     const price = useMemo(() => {
         return (
-            (bun ? bun.price * 2 : 0) +
+            (bun ? bun.price * 1 : 0) +
             element.reduce((s, v) => s + v.price, 0)
         );
     }, [bun, element]);
@@ -47,10 +47,6 @@ const BurgerConstructor = () => {
         <section className={isHover
             ? `${burgerConstructorStyles.section} ${burgerConstructorStyles.overbun} pt-25 pl-4 ml-5`
             : `${burgerConstructorStyles.section} pt-25 pl-4 ml-5`}>
-            {/*<div className={ isHover*/}
-            {/*    ? `${burgerConstructorStyles.top} ${burgerConstructorStyles.overbun}`*/}
-            {/*    : `${burgerConstructorStyles.top}`*/}
-            {/*} >*/}
             <div className={`${burgerConstructorStyles.block} mr-4`} ref={drop} >
                 {bun ? (
                     < ConstructorElement
