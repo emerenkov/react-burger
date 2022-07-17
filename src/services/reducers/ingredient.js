@@ -1,4 +1,7 @@
-import {CLOSE_WINDOW_INGREDIENT, OPEN_WINDOW_INGREDIENT} from "../actions/ingredient";
+import {
+    CLOSE_WINDOW_INGREDIENT,
+    OPEN_WINDOW_INGREDIENT
+} from "../actions/ingredient";
 
 const initialState = {
     openDetailsModal: null,

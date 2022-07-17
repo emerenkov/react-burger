@@ -6,7 +6,7 @@ import types from "../../utils/types";
 import {openModelIngredient} from "../../services/actions/ingredient";
 import { useDispatch, useSelector } from "react-redux";
 import {burgerConstructorReducer} from "../../services/reducers/ingredientsInConstructor";
-// import {useDrag} from "react-dnd";
+import {useDrag} from "react-dnd";
 
 
 const Ingredient = ({ingredient}) => {
@@ -14,20 +14,21 @@ const Ingredient = ({ingredient}) => {
 
     const handleOpenModal = (ingredient) => {
         dispatch(openModelIngredient(ingredient))
+        console.log('cliccc')
     }
 
     const { bun, element } = useSelector(store => store.burgerConstructorReducer);
 
-    // const [{ isDrag }, dragRef] = useDrag(
-    //     {
-    //         type: 'ingredient',
-    //         item: { ingredient },
-    //         collect: (monitor) => ({
-    //             isDrag: monitor.isDragging(),
-    //         }),
-    //     },
-    //     [bun, element],
-    // );
+    const [{ isDrag }, dragRef] = useDrag(
+        {
+            type: 'ingredient',
+            item: { ingredient },
+            collect: (monitor) => ({
+                isDrag: monitor.isDragging(),
+            }),
+        },
+        [bun, element],
+    );
 
     const setTotalCount = useMemo(() => {
         if (ingredient.type === 'bun') {
@@ -37,8 +38,8 @@ const Ingredient = ({ingredient}) => {
     }, [bun, element, ingredient._id, ingredient.type]);
 
     return (
-        <>
-            <img className="ml-5 mr-5 mb-1" src={ingredient.image_mobile} alt={ingredient.name} />
+        <div onClick={()=> {handleOpenModal(ingredient)}} style={{isDrag} } ref={dragRef} draggable>
+            <img className="ml-5 mr-5 mb-1" src={ingredient.image} alt={ingredient.name} />
             <div className={IngredientsStyle.price}>
                 <span className={`${IngredientsStyle.span} 
                 mr-2 text text_type_digits-default`}>{ingredient.price}</span>
@@ -47,7 +48,7 @@ const Ingredient = ({ingredient}) => {
             <p className={`${IngredientsStyle.name} 
             mt-2 mb-5 text text_type_main-default`}>{ingredient.name}</p>
             {setTotalCount > 0 && <Counter count={setTotalCount} size="default" />}
-            </>
+            </div>
     )
 }
 

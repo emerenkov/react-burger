@@ -12,16 +12,16 @@ export function closeWindowOrder () {
     };
 }
 
-export function getOrder () {
+export function getOrder (order) {  //order need add
     return function (dispatch) {
         dispatch({
             type: GET_ORDER_REQUEST
         });
-        setData() // order need add
+        setData(order) // order need add
             .then((res) => {
             dispatch({
                 type: GET_ORDER_SUCCESS,
-                orderNumber: res.number, // order need add
+                orderNumber: res.order.number, // order need add
             });
         })
             .catch((err) => {

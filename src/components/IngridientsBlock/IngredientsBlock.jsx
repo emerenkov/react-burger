@@ -2,6 +2,9 @@ import React, {forwardRef} from 'react';
 import IngredientsBlockStyle from './IngridientsBlock.module.css';
 import Ingredient from "../Ingredient/Ingredient";
 import PropTypes from 'prop-types';
+import {useDrag} from "react-dnd";
+import {openModelIngredient} from "../../services/actions/ingredient";
+import {useDispatch, useSelector} from "react-redux";
 
 
 const ConstructorBlock = forwardRef(({ categories, type }, ref) => {

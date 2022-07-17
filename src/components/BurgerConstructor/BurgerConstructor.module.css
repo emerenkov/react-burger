@@ -50,3 +50,17 @@
     align-items: center;
 
 }
+
+.top {
+    display: flex;
+
+    min-width: 30px;
+    min-height:30px;
+
+    margin: 0;
+    padding: 0;
+}
+
+.overbun {
+    outline: 5px solid blue;
+}
