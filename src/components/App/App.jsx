@@ -29,7 +29,7 @@ const App = () => {
         dispatch(getAllIngredients())
     }, [dispatch]);
 
-    const openModelIngredient = useSelector(store => store.ingredientReducer.openModelIngredient)
+    const openModelIngredient = useSelector(store => store.ingredientReducer.openDetailsModal)
 
     const handleCloseOrder = useCallback(() => {
         dispatch(closeWindowOrder());
