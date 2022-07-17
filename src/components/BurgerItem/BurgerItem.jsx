@@ -72,7 +72,7 @@ const BurgerItem = ({el, index, handleDelete}) => {
                 text={el.name}
                 price={el.price}
                 thumbnail={el.image_mobile}
-                handleCloseWindow={() => handleDelete(el)}
+                handleClose={() => handleDelete(el)}
                 />
         </li>
     </>
