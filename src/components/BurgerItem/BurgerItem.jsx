@@ -34,7 +34,7 @@ const BurgerItem = ({el, index, handleDelete}) => {
             if (dragIndex === hoverIndex) {
                 return;
             }
-            const hoverBoundingRect = ref.current.getBoundingClientRect();
+            const hoverBoundingRect = ref.current?.getBoundingClientRect();
             const hoverMiddleY = (hoverBoundingRect.bottom - hoverBoundingRect.top) / 2;
             const clientOffset = monitor.getClientOffset();
             const hoverClientY = clientOffset.y - hoverBoundingRect.top;
@@ -65,7 +65,6 @@ const BurgerItem = ({el, index, handleDelete}) => {
     drag(drop(ref));
 
     return (
-        <>
         <li className={ConstructorStyle.items} data-handler-id={handlerId} ref={ref} style={{ opacity }}>
             <DragIcon type="primary" className={'pr-10'} />
             <ConstructorElement
@@ -75,7 +74,7 @@ const BurgerItem = ({el, index, handleDelete}) => {
                 handleClose={() => handleDelete(el)}
                 />
         </li>
-    </>
+
     )
 }
 
