@@ -36,7 +36,7 @@ export const burgerConstructorReducer = (state = initialState, action) => {
             return {
                 ...state,
                 element: [...state.element].filter(item => item.uId !== action.item.uId),
-                productsId: [...state.productsId].filter(id => id !== action.item._id),      //id
+                productsId: [...state.productsId].filter(id => id !== action.item._id),
             }
 
         case RESET_INGREDIENT:
@@ -45,7 +45,7 @@ export const burgerConstructorReducer = (state = initialState, action) => {
                 element: update(state.element, {
                     $splice: [
                         [action.dragIndex, 1],
-                        [action.hoverIndex, 0, state.element[action.dragItem]],
+                        [action.hoverIndex, 0, state.element[action.dragIndex]],
                     ]
                 })
             }

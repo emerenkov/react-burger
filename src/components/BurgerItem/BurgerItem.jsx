@@ -66,6 +66,7 @@ const BurgerItem = ({el, index, handleDelete}) => {
 
     return (
         <li className={ConstructorStyle.items} data-handler-id={handlerId} ref={ref} style={{ opacity }}>
+            {/*<div>*/}
             <DragIcon type="primary" className={'pr-10'} />
             <ConstructorElement
                 text={el.name}
@@ -73,6 +74,7 @@ const BurgerItem = ({el, index, handleDelete}) => {
                 thumbnail={el.image_mobile}
                 handleClose={() => handleDelete(el)}
                 />
+            {/*</div>*/}
         </li>
 
     )

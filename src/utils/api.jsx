@@ -20,13 +20,13 @@ export const getData = () => {
         .then(res => parseResponse(res))
 }
 
-export const setData = () => {
+export const setData = (order) => {
     return fetch(`${api.url}/orders`, {
-        method: 'POST',
         headers: {
             'Content-Type': "application/json;charset=utf-8",
         },
-        body: JSON.stringify({"ingredients": ['60d3b41abdacab0026a733c6']})
+        method: 'POST',
+        body: JSON.stringify({ingredients: order})
     })
         .then(res => parseResponse(res))
 
