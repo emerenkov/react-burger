@@ -1,93 +1,63 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, useCallback} from 'react';
 import AddHeader from '../AppHeader/AppHeader';
 // import {} from '@ya.praktikum/react-developer-burger-ui-components';
 import appStyles from './App.module.css';
 import BurgerIngredients from "../BurgerIngredients/BurgerIngredients";
 import BurgerConstructor from "../BurgerConstructor/BurgerConstructor";
-import {api, parseResponse} from "../../utils/api";
 import Modal from "../Modal/Modal";
 import OrderDetails from "../OrderDetails/OrderDetails";
 import IngredientDetails from "../IngredientDetails/IngredientDetails";
+import {useSelector, useDispatch} from "react-redux";
+import {getAllIngredients} from "../../services/actions/allIngredients";
+import {burgerIngredientReducer} from "../../services/reducers/allIngredients";
+import { DndProvider } from 'react-dnd';
+import { HTML5Backend } from 'react-dnd-html5-backend';
+import {ingredientReducer} from "../../services/reducers/ingredient";
+import {closeModalIngredient, openModelIngredient} from "../../services/actions/ingredient";
+import {closeWindowOrder} from "../../services/actions/order";
+import {orderReducer} from "../../services/reducers/order";
 
-import { DataContext } from '../../services/dataContext';
 
 const App = () => {
+    const {ingredientsRequest, ingredientsFailed} = useSelector(store => store.burgerIngredientReducer)
 
-    const [ingredients, setIngredients] = useState([]);
+    const  orderReducer  = useSelector(store => store.orderReducer.orderNumber);
 
-    function getData () {
-        return fetch(`${api.url}/ingredients`)
-            .then(parseResponse)
-            .then((json) => {setIngredients(json.data)})
-            .catch(err => {console.log(err)});
-    }
-
-    const setData = () => {
-        return fetch(`${api.url}/orders`, {
-            method: 'POST',
-            headers: {
-                'Content-Type': "application/json;charset=utf-8",
-            },
-            body: JSON.stringify({"ingredients": ['60d3b41abdacab0026a733c6']})
-        })
-            .then(res => parseResponse(res))
-            .then((orderNumber) => {
-                setOrderNumber(orderNumber)
-            })
-            .catch((err) => setOrderNumber(null));
-    }
+    const dispatch = useDispatch();
 
     useEffect(() => {
-        getData();
-    }, []);
+        dispatch(getAllIngredients())
+    }, [dispatch]);
 
-    // Close all model windows
-    const closeAllModals = () => {
-        setIsOrderDetailsOpened(false);
-        setIsIngredientDetailsOpened(false);
-    };
+    const openModelIngredient = useSelector(store => store.ingredientReducer.openDetailsModal)
 
-    // open model windows (ingredient) when use mouse 'click'
-    const openModalIngredientDetails = (element) => {
-        setIngredientInModal (element)
-        setIsIngredientDetailsOpened(true);
-    }
+    const handleCloseOrder = useCallback(() => {
+        dispatch(closeWindowOrder());
+    }, [dispatch]);
 
-    // open model windows (order) when use mouse 'click'
-    const openModalOrderDetails = () => {
-        setIsOrderDetailsOpened(true)
-        setData(orderNumber)
-    }
+    const handleDetailsModal = useCallback(() => {
+        dispatch(closeModalIngredient());
+    }, [dispatch]);
 
-    const [orderNumber, setOrderNumber] = React.useState({
-        name: "",
-        order: {
-            number: ""
-        },
-        success: false
-    })
-
-    const [isOrderDetailsOpened, setIsOrderDetailsOpened] = React.useState(false);
-    const [isIngredientDetailsOpened, setIsIngredientDetailsOpened] = React.useState(false);
-    const [ingredientInModal, setIngredientInModal] = React.useState({ });
     return(
         <div className={appStyles.app}>
             <AddHeader />
-            <main className={appStyles.main}>
-                <DataContext.Provider value={{ ingredients, setIngredients }}>
-                    <BurgerIngredients openModalIngredient={openModalIngredientDetails}/>
-                    <BurgerConstructor openModalOrder={openModalOrderDetails}/>
-                </DataContext.Provider>
-            </main>
-            {isOrderDetailsOpened && (
-                <Modal title="Детали заказа" onClose={closeAllModals}>
-                    <OrderDetails orderNumber={orderNumber} />
+            {!ingredientsFailed && !ingredientsRequest &&(
+                <main className={appStyles.main}>
+                    <DndProvider backend={HTML5Backend}>
+                        <BurgerIngredients />
+                        <BurgerConstructor />
+                    </DndProvider>
+                </main>
+            )}
+            {orderReducer && (
+                <Modal title="Детали заказа" onClose={handleCloseOrder}>
+                    <OrderDetails />
                 </Modal>
             )}
-
-            {isIngredientDetailsOpened && (
-                <Modal title="Детали ингредиентов" onClose={closeAllModals}>
-                    <IngredientDetails ingredient={ingredientInModal} />
+            {openModelIngredient && (
+                <Modal title="Детали ингредиентов" onClose={handleDetailsModal}>
+                    <IngredientDetails ingredient={openModelIngredient} />
                 </Modal>
             )}
         </div>
