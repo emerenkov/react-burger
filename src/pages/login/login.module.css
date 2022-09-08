@@ -1,0 +1,38 @@
+.block {
+    margin: 180px;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.title {
+    margin: 0 auto;
+    padding: 0;
+
+}
+
+.form {
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 485px;
+}
+
+.form div {
+    width: 100%;
+    display: flex;
+}
+
+.form svg {
+    margin-left: 190px;
+}
+
+.link {
+    margin-left: 10px;
+    color: #4C4CFF;
+    text-decoration: none;
+
+}

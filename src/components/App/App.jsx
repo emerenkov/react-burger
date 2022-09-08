@@ -16,6 +16,8 @@ import {ingredientReducer} from "../../services/reducers/ingredient";
 import {closeModalIngredient, openModelIngredient} from "../../services/actions/ingredient";
 import {closeWindowOrder} from "../../services/actions/order";
 import {orderReducer} from "../../services/reducers/order";
+import {BrowserRouter, Route, Switch} from "react-router-dom";
+import Login from "../../pages/login/login";
 
 
 const App = () => {
@@ -42,24 +44,35 @@ const App = () => {
     return(
         <div className={appStyles.app}>
             <AddHeader />
-            {!ingredientsFailed && !ingredientsRequest &&(
-                <main className={appStyles.main}>
-                    <DndProvider backend={HTML5Backend}>
-                        <BurgerIngredients />
-                        <BurgerConstructor />
-                    </DndProvider>
-                </main>
-            )}
-            {orderReducer && (
-                <Modal title="Детали заказа" onClose={handleCloseOrder}>
-                    <OrderDetails />
-                </Modal>
-            )}
-            {openModelIngredient && (
-                <Modal title="Детали ингредиентов" onClose={handleDetailsModal}>
-                    <IngredientDetails ingredient={openModelIngredient} />
-                </Modal>
-            )}
+            <BrowserRouter>
+                <Switch>
+                    <Route exact path={'/'}>
+                {!ingredientsFailed && !ingredientsRequest &&(
+                    <main className={appStyles.main}>
+                        <DndProvider backend={HTML5Backend}>
+                            <BurgerIngredients />
+                            <BurgerConstructor />
+                        </DndProvider>
+                    </main>
+                )}
+                    </Route >
+                    <Route exact path={'/login'}>
+                        <Login />
+                    </Route>
+                </Switch>
+            </BrowserRouter>
+
+
+                {orderReducer && (
+                    <Modal title="Детали заказа" onClose={handleCloseOrder}>
+                        <OrderDetails />
+                    </Modal>
+                )}
+                {openModelIngredient && (
+                    <Modal title="Детали ингредиентов" onClose={handleDetailsModal}>
+                        <IngredientDetails ingredient={openModelIngredient} />
+                    </Modal>
+                )}
         </div>
     )
 }
