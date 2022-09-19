@@ -5,6 +5,7 @@ import IngredientsBlock from "../IngridientsBlock/IngredientsBlock";
 import Categories from "../../utils/categories";
 import {useInView} from 'react-intersection-observer'
 import {useSelector} from "react-redux";
+import {Link} from "react-router-dom";
 
 
 const BurgerIngredients = () => {
@@ -61,15 +62,15 @@ const BurgerIngredients = () => {
                 </a>
                 </div>
             <article className={burgerIngredientsStyles.article} >
-                <a name='bun'>
+                {/*<a name='bun'>*/}
                 <IngredientsBlock categories={buns} type={Categories.Bun} ref={bunRef}/>
-                </a>
-                <a name='sauce'>
+                {/*</a>*/}
+                {/*<a name='sauce'>*/}
                 <IngredientsBlock categories={sauces} type={Categories.Sauce} ref={sauceRef}/>
-                </a>
-                <a name='main'>
+                {/*</a>*/}
+                {/*<a name='main'>*/}
                 <IngredientsBlock categories={mains} type={Categories.Main} ref={mainRef}/>
-                </a>
+                {/*</a>*/}
             </article>
         </section>
     )

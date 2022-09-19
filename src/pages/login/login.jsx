@@ -1,33 +1,53 @@
 import React, {useState} from 'react';
 import loginStyles from './login.module.css';
-import {EmailInput, PasswordInput, Button, EditIcon} from '@ya.praktikum/react-developer-burger-ui-components';
-import {Link} from "react-router-dom";
+import { PasswordInput, Button, EditIcon, Input} from '@ya.praktikum/react-developer-burger-ui-components';
+import {Link, Redirect, useLocation} from "react-router-dom";
+import {useDispatch, useSelector} from "react-redux";
+import {authorizationUser} from "../../services/actions/registration";
 
 const Login = () => {
-    const [email, setEmail] = useState('')
-    const [password, setPassword] = useState('')
+    const user = useSelector(store => store.registration.user);
+    const dispatch = useDispatch();
+    const location = useLocation();
+
+
+
+    const [emailLogin, setEmailLogin] = useState('')
+    const [passwordLogin, setPasswordLogin] = useState('')
 
     const loginInputEmail = (e) => {
-        setEmail(e.target.value);
+        setEmailLogin(e.target.value);
     }
     const loginInputPassword = (e) => {
-        setPassword(e.target.value);
+        setPasswordLogin(e.target.value);
+    }
+
+    const loginSubmit = (e) => {
+        e.preventDefault();
+        dispatch(authorizationUser(emailLogin, passwordLogin));
+    };
+
+    if (user) {
+        console.log(location);
+        return (
+            <Redirect to={location?.state?.from.pathname || '/'} />
+        );
     }
 
     return (
         <div className={loginStyles.block}>
             <h2 className={`${loginStyles.title} text text_type_main-medium`}>Вход</h2>
-            <form className={loginStyles.form}>
+            <form className={loginStyles.form} onSubmit={loginSubmit}>
                 <div className={'mt-6 mb-6'}>
-                    <EmailInput
-                        placeholder='email'
-                        name='email'
+                    <Input
                         type='email'
+                        placeholder='E-mail'
                         onChange={loginInputEmail}
-                        value={email}
+                        value={emailLogin}
+                        name='email'
                         error={false}
-                        errorText='Ошибка'
-                        size='default'
+                        errorText={'Ошибка'}
+                        size={'default'}
                     />
                 </div>
                 <div className={'mb-6'}>
@@ -38,19 +58,21 @@ const Login = () => {
                         error={false}
                         errorText='Ошибка'
                         onChange={loginInputPassword}
-                        value={password}
+                        value={passwordLogin}
                         name='password'
-                        size='default' />
+                        size='default'
+                        autocomplete="current-password"
+                    />
                 </div>
-                <Button type="primary" size="medium">
+                <Button disabled={!(emailLogin && passwordLogin)} type="primary" size="medium">
                     Войти
                 </Button>
             </form>
             <span className={'text text_type_main-default text_color_inactive mt-20'}>Вы — новый пользователь?
-                <Link className={loginStyles.link} to={'/'}>Зарегистрироваться</Link>
+                <Link className={loginStyles.link} to={'/register'}>Зарегистрироваться</Link>
             </span>
             <span className={'text text_type_main-default text_color_inactive mt-4'}>Забыли пароль?
-                <Link className={loginStyles.link} to={'/'}>Восстановить пароль</Link>
+                <Link className={loginStyles.link} to={'/forgot-password'}>Восстановить пароль</Link>
             </span>
         </div>
     )
