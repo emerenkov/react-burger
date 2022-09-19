@@ -9,8 +9,8 @@ const Profile = () => {
     const user = useSelector(store => store.registration.user)
     const dispatch = useDispatch();
 
-    const [nameProfile, setNameProfile] = useState('');
-    const [loginProfile, setLoginProfile] = useState('');
+    const [nameProfile, setNameProfile] = useState(user.name);
+    const [loginProfile, setLoginProfile] = useState(user.email);
     const [passwordProfile, setPasswordProfile] = useState('');
 
     const nameRef = useRef(null);

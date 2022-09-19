@@ -1,7 +1,7 @@
 import React, {useRef, useState} from 'react';
 import resetPassword from './reset-password.module.css';
 import {Button, EditIcon, Input, PasswordInput} from "@ya.praktikum/react-developer-burger-ui-components";
-import {Link, Redirect} from "react-router-dom";
+import {Link, Redirect, useHistory} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
 import {resetPasswordUser} from "../../services/actions/registration";
 
@@ -11,6 +11,7 @@ const ResetPassword = () => {
     // const passwordRef = useRef(null);
     const [passwordReset, setPasswordReset] = useState('')
     const [keyInput, setKeyInput] = useState('')
+    const history = useHistory();
 
     const inputPassword = (e) => {
         setPasswordReset(e.target.value);
@@ -20,9 +21,14 @@ const ResetPassword = () => {
         setKeyInput(e.target.value);
     };
 
+    const nextStepLogin = () => {
+        history.replace({ pathname: '/login'});
+    }
+
     const resetPasswordSubmit = (e) => {
         e.preventDefault();
         dispatch(resetPasswordUser(passwordReset, keyInput))
+        nextStepLogin()
     }
 
     if (user) {
