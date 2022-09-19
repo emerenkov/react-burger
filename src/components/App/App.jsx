@@ -32,11 +32,11 @@ const App = () => {
     const location = useLocation();
     const history = useHistory();
     const background = location.state?.background;
-    console.log('background',background);
+
     const cookie = getCookie('token');
     const refreshToken = localStorage.getItem('token');
     const getTokenSuccess = useSelector(store => store.registration.getTokenSuccess)
-    console.log('getTokenSuccess',getTokenSuccess);
+
 
 
     useEffect(() => {

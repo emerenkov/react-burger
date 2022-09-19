@@ -54,7 +54,6 @@ export function authorizationUser(email, password) {
                 dispatch({
                     type: AUTHORIZATION_SUCCESS,
                 });
-                console.log('authorization',res);
             })
             .catch((err) => {
                 dispatch({
@@ -75,7 +74,6 @@ export function getDataUser() {
                 type: DATA_USER_SUCCESS,
                 payload: res.user,
             });
-            console.log('getDataUser',res)
         })
             .catch((err) => {
                 dispatch({
@@ -96,7 +94,6 @@ export function updateUserInformation(email, password, name) {
                     type: UPDATE_DATA_USER_SUCCESS,
                     payload: res.user,
                 });
-                console.log('updateUserInformation',res)
             })
             .catch((err) => {
                 dispatch({
@@ -119,7 +116,6 @@ export function registrationNewUser (email, password, name) {
                     type: REGISTRATION_USER_SUCCESS,
                     payload: res.user,
                 })
-                console.log('registrationNewUser',res)
             })
             .catch((err) => {
                 dispatch({
@@ -142,7 +138,6 @@ export function updateUserToken () {
                 dispatch({
                     type: UPDATE_USER_TOKEN_SUCCESS
                 })
-                console.log('newToken', res);
             })
             .catch((err) => {
                 dispatch({
@@ -165,7 +160,6 @@ export function logoutUser(outToken) {
                 dispatch({
                     type: LOGOUT_SUCCESS
                 })
-                console.log('logoutUser',res)
             })
             .catch(err=>{
                 dispatch({
@@ -185,7 +179,6 @@ export function resetPasswordEmail (email) {
                 dispatch({
                     type: REQUEST_PASSWORD_SUCCESS
                 })
-                console.log('resetPasswordEmail',res)
             })
         .catch((err) => {
             dispatch({
@@ -207,7 +200,6 @@ export function resetPasswordUser (password, token) {
                     success: res.success,
                     message: res.message
                 })
-                console.log('resetPasswordPassword',res)
             })
             .catch((err) => {
                 dispatch({

@@ -34,6 +34,7 @@ import {
 
 const initialState = {
     user: null,
+    error: null,
 
     authRequest: false,
     authSuccess: false,
@@ -74,7 +75,8 @@ export const registration = (state = initialState, action) => {
         case AUTHORIZATION_REQUEST:
             return {
                 ...state,
-                authRequest: true
+                authRequest: true,
+                error: false,
             };
         case AUTHORIZATION_SUCCESS:
             return {
@@ -82,13 +84,15 @@ export const registration = (state = initialState, action) => {
                 authRequest: false,
                 authSuccess: true,
                 user: action.payload,
+                error: false,
             };
         case AUTHORIZATION_FAILED:
             return {
                 ...state,
                 authRequest: false,
                 authSuccess: false,
-                authFailed: true
+                authFailed: true,
+                error: true,
             };
 
         case DATA_USER_REQUEST:
@@ -228,7 +232,7 @@ export const registration = (state = initialState, action) => {
                 resetPasswordFailed: true
             };
         default:
-            console.log(state);
+            // console.log(state);
             return state;
     }
 }

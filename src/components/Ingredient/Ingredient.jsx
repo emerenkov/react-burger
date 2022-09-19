@@ -16,7 +16,6 @@ const Ingredient = ({ingredient}) => {
 
     const handleOpenModal = (ingredient) => {
         dispatch(openModelIngredient(ingredient))
-        console.log('cliccc')
     }
 
     const { bun, element } = useSelector(store => store.burgerConstructorReducer);

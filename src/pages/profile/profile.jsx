@@ -135,7 +135,7 @@ const Profile = () => {
                     />
                 </div>
                 <div>
-                    <Button type="secondary" size="medium" onClick={cancelButton} >Отмена</Button>
+                    <Button disabled={!(nameProfile && loginProfile && passwordProfile)} type="secondary" size="medium" onClick={cancelButton} >Отмена</Button>
                     <Button disabled={!(nameProfile && loginProfile && passwordProfile)} type="primary" size="medium">Сохранить</Button>
                 </div>
             </form>

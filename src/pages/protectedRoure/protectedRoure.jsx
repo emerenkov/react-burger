@@ -7,6 +7,12 @@ export function ProtectedRoute({ children, ...rest }) {
     const user = useSelector(store => store.registration.user);
     const location = useLocation();
 
+    // if (user) {
+    //     return (
+    //         <Redirect to={location?.state?.from.pathname || '/'} />
+    //     );
+    // }
+
     return (
         <Route
             {...rest}

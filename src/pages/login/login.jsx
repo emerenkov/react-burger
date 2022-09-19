@@ -1,15 +1,16 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import loginStyles from './login.module.css';
 import { PasswordInput, Button, EditIcon, Input} from '@ya.praktikum/react-developer-burger-ui-components';
-import {Link, Redirect, useLocation} from "react-router-dom";
+import {Link, Redirect, useHistory, useLocation} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
 import {authorizationUser} from "../../services/actions/registration";
 
 const Login = () => {
     const user = useSelector(store => store.registration.user);
+    const error = useSelector(store => store.registration.error);
     const dispatch = useDispatch();
     const location = useLocation();
-
+    const history = useHistory();
 
 
     const [emailLogin, setEmailLogin] = useState('')
@@ -27,12 +28,18 @@ const Login = () => {
         dispatch(authorizationUser(emailLogin, passwordLogin));
     };
 
-    if (user) {
-        console.log(location);
-        return (
-            <Redirect to={location?.state?.from.pathname || '/'} />
-        );
-    }
+    useEffect(() => {
+        if (user) {
+            (location.state && location.state.from) ? history.push(location.state.from.pathname) : history.push('/');
+        }
+    }, [user, history, location]);
+
+
+    // if (user) {
+    //     return (
+    //         <Redirect to={location?.state?.from.pathname || '/'} />
+    //     );
+    // }
 
     return (
         <div className={loginStyles.block}>
@@ -55,7 +62,7 @@ const Login = () => {
                         placeholder='password'
                         type='password'
                         icon={EditIcon}
-                        error={false}
+                        error={error}
                         errorText='Ошибка'
                         onChange={loginInputPassword}
                         value={passwordLogin}
@@ -63,8 +70,11 @@ const Login = () => {
                         size='default'
                         autocomplete="current-password"
                     />
+                    {/*{error &&*/}
+                    {/*<p>error password or login</p>*/}
+                    {/*}*/}
                 </div>
-                <Button disabled={!(emailLogin && passwordLogin)} type="primary" size="medium">
+                <Button disabled={!(emailLogin && passwordLogin)} type="submit" size="medium">
                     Войти
                 </Button>
             </form>
