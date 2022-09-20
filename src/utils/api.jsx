@@ -93,12 +93,12 @@ export const newToken = () => {
         .then(res => parseResponse(res))
 }
 
-export function logout(outToken) {
+export function logout(refreshToken) {
     return fetch(`${api.url}/auth/logout`, {
         headers: api.headers,
         method: 'POST',
         body: JSON.stringify({
-            token: outToken
+            token: refreshToken
         })
     })
         .then(res => parseResponse(res))

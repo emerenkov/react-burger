@@ -156,7 +156,6 @@ export function logoutUser(outToken) {
             .then((res) => {
                 deleteCookie('token');
                 localStorage.removeItem('token');
-                console.log('logout')
                 dispatch({
                     type: LOGOUT_SUCCESS
                 })

@@ -1,14 +1,15 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import registrationStyles from './register.module.css';
 import {Input, EmailInput, PasswordInput, Button} from "@ya.praktikum/react-developer-burger-ui-components";
-import {Link, Redirect} from "react-router-dom";
+import {Link, Redirect, useHistory, useLocation} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
 import {registrationNewUser} from "../../services/actions/registration";
 
 const Register = () => {
     const user = useSelector(store => store.registration.user);
-    console.log('REGISTRATION new USER',user);
+    const location = useLocation();
     const dispatch = useDispatch();
+    const history = useHistory();
     const [nameRegister, setNameRegister] = useState('');
     const [emailRegister, setEmailRegister] = useState('');
     const [passwordRegister, setPasswordRegister] = useState('');
@@ -30,11 +31,11 @@ const Register = () => {
         dispatch(registrationNewUser(emailRegister, passwordRegister, nameRegister))
     }
 
-    if (user) {
-        return (
-            <Redirect to= '/' />
-        )
-    }
+    useEffect(() => {
+        if (user) {
+            (location.state && location.state.from) ? history.push(location.state.from.pathname) : history.push('/');
+        }
+    }, [user, history, location]);
 
     return (
         <div className={registrationStyles.block}>
@@ -76,7 +77,7 @@ const Register = () => {
                         suggested='current-password'
                     />
                 </div>
-                <Button disabled={!(nameRegister && emailRegister && passwordRegister)} type="primary" size="medium">
+                <Button disabled={!(nameRegister && emailRegister && passwordRegister)} type="submit" size="medium">
                     Зарегистрироваться
                 </Button>
             </form>

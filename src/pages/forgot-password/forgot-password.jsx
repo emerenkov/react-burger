@@ -1,7 +1,7 @@
-import React, {useRef, useState} from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import forgotPasswordStyles from './forgot-password.module.css';
 import {Button, Input} from "@ya.praktikum/react-developer-burger-ui-components";
-import {Link, Redirect, useHistory} from "react-router-dom";
+import {Link, Redirect, useHistory, useLocation} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
 
 import {resetPasswordEmail} from "../../services/actions/registration";
@@ -12,6 +12,7 @@ const ForgotPassword = () => {
     const [email, setEmailForgot] = useState('');
     const ref = useRef(null);
     const history = useHistory();
+    const location = useLocation();
 
     const inputEmail = (e) => {
         setEmailForgot(e.target.value)
@@ -31,12 +32,11 @@ const ForgotPassword = () => {
         nextStepResetPassword();
     }
 
-    if (user) {
-        console.log(user);
-        return (
-            <Redirect to= '/' />
-        )
-    }
+    useEffect(() => {
+        if (user) {
+            (location.state && location.state.from) ? history.push(location.state.from.pathname) : history.push('/');
+        }
+    }, [user, history, location]);
 
     return (
         <div className={forgotPasswordStyles.block}>
@@ -55,7 +55,7 @@ const ForgotPassword = () => {
                         ref={ref}
                     />
                 </div>
-                <Button disabled={!(email)} type="primary" size="medium" >
+                <Button disabled={!(email)} type="submit" size="medium" >
                     Восстановить
                 </Button>
             </form>

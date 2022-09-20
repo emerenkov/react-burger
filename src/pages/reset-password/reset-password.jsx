@@ -1,7 +1,7 @@
-import React, {useRef, useState} from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import resetPassword from './reset-password.module.css';
 import {Button, EditIcon, Input, PasswordInput} from "@ya.praktikum/react-developer-burger-ui-components";
-import {Link, Redirect, useHistory} from "react-router-dom";
+import {Link, Redirect, useHistory, useLocation} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
 import {resetPasswordUser} from "../../services/actions/registration";
 
@@ -12,6 +12,7 @@ const ResetPassword = () => {
     const [passwordReset, setPasswordReset] = useState('')
     const [keyInput, setKeyInput] = useState('')
     const history = useHistory();
+    const location = useLocation();
 
     const inputPassword = (e) => {
         setPasswordReset(e.target.value);
@@ -31,11 +32,11 @@ const ResetPassword = () => {
         nextStepLogin()
     }
 
-    if (user) {
-        return (
-            <Redirect to={ '/'} />
-        );
-    }
+    useEffect(() => {
+        if (user) {
+            (location.state && location.state.from) ? history.push(location.state.from.pathname) : history.push('/');
+        }
+    }, [user, history, location]);
 
     return (
         <div className={resetPassword.block}>
@@ -68,7 +69,7 @@ const ResetPassword = () => {
                         size={'default'}
                     />
                 </div>
-                <Button type="primary" size="medium">
+                <Button type="submit" size="medium">
                     Сохранить
                 </Button>
             </form>
