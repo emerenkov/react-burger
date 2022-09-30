@@ -7,7 +7,7 @@ import {
     resetPassword,
     updateUser
 } from "../../utils/api";
-import { setCookie, deleteCookie } from "../../utils/cookie";
+import {setCookie, deleteCookie, getCookie} from "../../utils/cookie";
 
 export const AUTHORIZATION_REQUEST = 'AUTHORIZATION_REQUEST';
 export const AUTHORIZATION_SUCCESS = 'AUTHORIZATION_SUCCESS';
@@ -40,6 +40,19 @@ export const REQUEST_PASSWORD_FAILED = 'REQUEST_PASSWORD_FAILED';
 export const RESET_PASSWORD_REQUEST = 'RESET_PASSWORD_REQUEST';
 export const RESET_PASSWORD_SUCCESS = 'RESET_PASSWORD_SUCCESS';
 export const RESET_PASSWORD_FAILED = 'RESET_PASSWORD_FAILED';
+
+export const AUTH_CHECKED = 'AUTH_CHECKED';
+
+export const checkUserAuth = () => (dispatch) => {
+    if(getCookie('authToken')) {
+        dispatch(getDataUser())
+            .finally(() => {
+                dispatch({type: AUTH_CHECKED});
+            })
+    } else {
+        dispatch({type: AUTH_CHECKED});
+    }
+}
 
 export function authorizationUser(email, password) {
     return function (dispatch) {

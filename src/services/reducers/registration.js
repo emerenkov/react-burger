@@ -30,11 +30,14 @@ import {
     RESET_PASSWORD_REQUEST,
     RESET_PASSWORD_SUCCESS,
     RESET_PASSWORD_FAILED,
+
+    AUTH_CHECKED,
 } from "../actions/registration";
 
 const initialState = {
     user: null,
     error: null,
+    auth: false,
 
     authRequest: false,
     authSuccess: false,
@@ -72,6 +75,11 @@ const initialState = {
 
 export const registration = (state = initialState, action) => {
     switch (action.type) {
+        case AUTH_CHECKED:
+          return {
+            ...state,
+              auth: true,
+          }
         case AUTHORIZATION_REQUEST:
             return {
                 ...state,
@@ -84,6 +92,7 @@ export const registration = (state = initialState, action) => {
                 authRequest: false,
                 authSuccess: true,
                 user: action.payload,
+                auth: true,
                 error: false,
             };
         case AUTHORIZATION_FAILED:
@@ -106,6 +115,7 @@ export const registration = (state = initialState, action) => {
                 dataUserRequest: false,
                 dataUserSuccess: true,
                 user: action.payload,
+                auth: true,
             };
         case DATA_USER_FAILED:
             return {
@@ -124,6 +134,7 @@ export const registration = (state = initialState, action) => {
             return {
                 ...state,
                 user: null,
+                auth: null,
                 logoutRequest: false,
                 logoutSuccess: true,
             };
@@ -146,6 +157,7 @@ export const registration = (state = initialState, action) => {
                 updateUserRequest: false,
                 updateUserSuccess: true,
                 user: action.payload,
+                auth: true,
             };
         case UPDATE_DATA_USER_FAILED:
             return {
@@ -166,6 +178,7 @@ export const registration = (state = initialState, action) => {
                 registrationNewUserRequest: false,
                 registrationNewUserSuccess: true,
                 user: action.payload,
+                auth: true,
             };
         case REGISTRATION_USER_FAILED:
             return {

@@ -2,8 +2,10 @@ import React from 'react';
 import { BurgerIcon, ListIcon, Logo, ProfileIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import appHeaderStyles from './AppHeader.module.css';
 import { NavLink } from 'react-router-dom';
+import {useSelector} from "react-redux";
 
 const AddHeader = () => {
+    const user = useSelector(store => store.registration.user);
     return(
         <header className={`${appHeaderStyles.header} mt-4`}>
             <nav className={`${appHeaderStyles.navigation} pt-4 pb-4`} >

@@ -6,6 +6,13 @@
     align-items: center;
 }
 
+.text {
+    top: 230px;
+    position: absolute;
+    color: red;
+
+}
+
 .title {
     margin: 0 auto;
     padding: 0;

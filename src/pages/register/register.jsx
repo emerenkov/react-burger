@@ -31,11 +31,11 @@ const Register = () => {
         dispatch(registrationNewUser(emailRegister, passwordRegister, nameRegister))
     }
 
-    useEffect(() => {
-        if (user) {
-            (location.state && location.state.from) ? history.push(location.state.from.pathname) : history.push('/');
-        }
-    }, [user, history, location]);
+    // useEffect(() => {
+    //     if (user) {
+    //         (location.state && location.state.from) ? history.push(location.state.from.pathname) : history.push('/');
+    //     }
+    // }, [user, history, location]);
 
     return (
         <div className={registrationStyles.block}>
@@ -77,7 +77,7 @@ const Register = () => {
                         suggested='current-password'
                     />
                 </div>
-                <Button disabled={!(nameRegister && emailRegister && passwordRegister)} type="submit" size="medium">
+                <Button disabled={!(nameRegister && emailRegister && passwordRegister)} htmlType="submit" type="primary" size="medium">
                     Зарегистрироваться
                 </Button>
             </form>

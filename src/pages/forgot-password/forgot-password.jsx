@@ -32,11 +32,11 @@ const ForgotPassword = () => {
         nextStepResetPassword();
     }
 
-    useEffect(() => {
-        if (user) {
-            (location.state && location.state.from) ? history.push(location.state.from.pathname) : history.push('/');
-        }
-    }, [user, history, location]);
+    // useEffect(() => {
+    //     if (user) {
+    //         (location.state && location.state.from) ? history.push(location.state.from.pathname) : history.push('/');
+    //     }
+    // }, [user, history, location]);
 
     return (
         <div className={forgotPasswordStyles.block}>
@@ -55,7 +55,7 @@ const ForgotPassword = () => {
                         ref={ref}
                     />
                 </div>
-                <Button disabled={!(email)} type="submit" size="medium" >
+                <Button disabled={!(email)} htmlType="submit" type="primary" size="medium" >
                     Восстановить
                 </Button>
             </form>

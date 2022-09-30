@@ -28,11 +28,13 @@ const Login = () => {
         dispatch(authorizationUser(emailLogin, passwordLogin));
     };
 
-    useEffect(() => {
-        if (user) {
-            (location.state && location.state.from) ? history.push(location.state.from.pathname) : history.push('/');
-        }
-    }, [user, history, location]);
+    // useEffect(() => {
+    //     if (user) {
+    //         (location.state && location.state.from)
+    //             ? history.push(location.state.from.pathname)
+    //             : history.push('/');
+    //     }
+    // }, [user, history, location]);
 
 
     // if (user) {
@@ -43,6 +45,9 @@ const Login = () => {
 
     return (
         <div className={loginStyles.block}>
+            {error &&
+            <p className={loginStyles.text}>Некорректный пароль</p>
+            }
             <h2 className={`${loginStyles.title} text text_type_main-medium`}>Вход</h2>
             <form className={loginStyles.form} onSubmit={loginSubmit}>
                 <div className={'mt-6 mb-6'}>
@@ -70,11 +75,8 @@ const Login = () => {
                         size='default'
                         autocomplete="current-password"
                     />
-                    {/*{error &&*/}
-                    {/*<p>error password or login</p>*/}
-                    {/*}*/}
                 </div>
-                <Button disabled={!(emailLogin && passwordLogin)} type="submit" size="medium">
+                <Button disabled={!(emailLogin && passwordLogin)} htmlType="submit" type="primary" size="medium">
                     Войти
                 </Button>
             </form>

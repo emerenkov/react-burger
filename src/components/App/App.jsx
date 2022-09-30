@@ -18,7 +18,7 @@ import Register from "../../pages/register/register";
 import ForgotPassword from "../../pages/forgot-password/forgot-password";
 import ResetPassword from "../../pages/reset-password/reset-password";
 import Profile from "../../pages/profile/profile";
-import { getDataUser, updateUserToken } from '../../services/actions/registration';
+import { getDataUser, updateUserToken, checkUserAuth } from '../../services/actions/registration';
 import { getCookie } from "../../utils/cookie";
 import {ProtectedRoute} from "../../pages/protectedRoure/protectedRoure";
 
@@ -28,6 +28,7 @@ const App = () => {
     const  orderReducer  = useSelector(store => store.orderReducer.orderNumber);
 
     const user = useSelector(store => store.registration.user);
+    const auth = useSelector(store => store.registration.auth);
     const dispatch = useDispatch();
     const location = useLocation();
     const history = useHistory();
@@ -38,9 +39,10 @@ const App = () => {
     const getTokenSuccess = useSelector(store => store.registration.getTokenSuccess)
 
 
-
     useEffect(() => {
-        dispatch(getAllIngredients())
+        dispatch(getAllIngredients());
+
+        dispatch(checkUserAuth());
     }, [dispatch]);
 
     // const openModelIngredient = useSelector(store => store.ingredientReducer.openDetailsModal)
@@ -84,18 +86,18 @@ const App = () => {
                     </main>
                 )}
                     </Route >
-                    <Route exact path={'/login'}>
+                    <ProtectedRoute onlyAuth={true} exact path={'/login'}>
                         <Login />
-                    </Route>
-                    <Route exact path={'/register'}>
+                    </ProtectedRoute>
+                    <ProtectedRoute onlyAuth={true} exact path={'/register'}>
                         <Register />
-                    </Route>
-                    <Route exact path={'/forgot-password'}>
+                    </ProtectedRoute>
+                    <ProtectedRoute onlyAuth={true} exact path={'/forgot-password'}>
                         <ForgotPassword />
-                    </Route>
-                    <Route exact path={'/reset-password'}>
+                    </ProtectedRoute>
+                    <ProtectedRoute onlyAuth={true} exact path={'/reset-password'}>
                         <ResetPassword />
-                    </Route>
+                    </ProtectedRoute>
                     <ProtectedRoute exact path={'/profile'}>
                         <Profile />
                     </ProtectedRoute>

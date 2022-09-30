@@ -32,11 +32,11 @@ const ResetPassword = () => {
         nextStepLogin()
     }
 
-    useEffect(() => {
-        if (user) {
-            (location.state && location.state.from) ? history.push(location.state.from.pathname) : history.push('/');
-        }
-    }, [user, history, location]);
+    // useEffect(() => {
+    //     if (user) {
+    //         (location.state && location.state.from) ? history.push(location.state.from.pathname) : history.push('/');
+    //     }
+    // }, [user, history, location]);
 
     return (
         <div className={resetPassword.block}>
@@ -69,7 +69,7 @@ const ResetPassword = () => {
                         size={'default'}
                     />
                 </div>
-                <Button type="submit" size="medium">
+                <Button htmlType="submit" type="primary" size="medium">
                     Сохранить
                 </Button>
             </form>
