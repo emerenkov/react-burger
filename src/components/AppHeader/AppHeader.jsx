@@ -6,6 +6,7 @@ import {useSelector} from "react-redux";
 
 const AddHeader = () => {
     const user = useSelector(store => store.registration.user);
+    const auth = user ? user.email : 'Личный кабинет'
     return(
         <header className={`${appHeaderStyles.header} mt-4`}>
             <nav className={`${appHeaderStyles.navigation} pt-4 pb-4`} >
@@ -31,7 +32,7 @@ const AddHeader = () => {
                         <NavLink className={`${appHeaderStyles.links} `}
                                  activeClassName={appHeaderStyles.linkActive} to='/profile'>
                             <ProfileIcon type="primary" />
-                            <span className="ml-2 text text_type_main-default">Личный кабинет</span>
+                            <span className="ml-2 text text_type_main-default">{auth}</span>
                         </NavLink>
                     </li>
                 </menu>
