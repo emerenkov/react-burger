@@ -1,6 +1,5 @@
 import React, {useState, useEffect, useCallback} from 'react';
 import AddHeader from '../AppHeader/AppHeader';
-// import {} from '@ya.praktikum/react-developer-burger-ui-components';
 import appStyles from './App.module.css';
 import BurgerIngredients from "../BurgerIngredients/BurgerIngredients";
 import BurgerConstructor from "../BurgerConstructor/BurgerConstructor";
@@ -9,57 +8,117 @@ import OrderDetails from "../OrderDetails/OrderDetails";
 import IngredientDetails from "../IngredientDetails/IngredientDetails";
 import {useSelector, useDispatch} from "react-redux";
 import {getAllIngredients} from "../../services/actions/allIngredients";
-import {burgerIngredientReducer} from "../../services/reducers/allIngredients";
 import { DndProvider } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
-import {ingredientReducer} from "../../services/reducers/ingredient";
 import {closeModalIngredient, openModelIngredient} from "../../services/actions/ingredient";
 import {closeWindowOrder} from "../../services/actions/order";
-import {orderReducer} from "../../services/reducers/order";
+import { Route, Switch, useHistory, useLocation} from "react-router-dom";
+import Login from "../../pages/login/login";
+import Register from "../../pages/register/register";
+import ForgotPassword from "../../pages/forgot-password/forgot-password";
+import ResetPassword from "../../pages/reset-password/reset-password";
+import Profile from "../../pages/profile/profile";
+import { getDataUser, updateUserToken, checkUserAuth } from '../../services/actions/registration';
+import { getCookie } from "../../utils/cookie";
+import {ProtectedRoute} from "../../pages/protectedRoure/protectedRoure";
 
 
 const App = () => {
     const {ingredientsRequest, ingredientsFailed} = useSelector(store => store.burgerIngredientReducer)
-
     const  orderReducer  = useSelector(store => store.orderReducer.orderNumber);
 
+    const user = useSelector(store => store.registration.user);
+    const auth = useSelector(store => store.registration.auth);
     const dispatch = useDispatch();
+    const location = useLocation();
+    const history = useHistory();
+    const background = location.state?.background;
+
+    const cookie = getCookie('token');
+    const refreshToken = localStorage.getItem('token');
+    const getTokenSuccess = useSelector(store => store.registration.getTokenSuccess)
+
 
     useEffect(() => {
-        dispatch(getAllIngredients())
+        dispatch(getAllIngredients());
+
+        dispatch(checkUserAuth());
     }, [dispatch]);
 
-    const openModelIngredient = useSelector(store => store.ingredientReducer.openDetailsModal)
+    // const openModelIngredient = useSelector(store => store.ingredientReducer.openDetailsModal)
 
-    const handleCloseOrder = useCallback(() => {
+    const handleCloseOrder = () => {
         dispatch(closeWindowOrder());
-    }, [dispatch]);
+        history.replace('/');
+    };
 
-    const handleDetailsModal = useCallback(() => {
-        dispatch(closeModalIngredient());
-    }, [dispatch]);
+    const openOrderDetails = () => {
+        if (!user) {
+            history.replace('/login')
+        }
+    }
+
+    useEffect(() => {
+        if (!user && refreshToken && cookie ) {
+            dispatch(getDataUser());
+        }
+        if (!cookie && getTokenSuccess) {
+            dispatch(updateUserToken());
+        }
+        if (cookie && getTokenSuccess && refreshToken && !user) {
+            dispatch(getDataUser());
+        }
+    }, [dispatch, getTokenSuccess, refreshToken, cookie, user])
 
     return(
         <div className={appStyles.app}>
+
             <AddHeader />
-            {!ingredientsFailed && !ingredientsRequest &&(
-                <main className={appStyles.main}>
-                    <DndProvider backend={HTML5Backend}>
-                        <BurgerIngredients />
-                        <BurgerConstructor />
-                    </DndProvider>
-                </main>
-            )}
-            {orderReducer && (
-                <Modal title="Детали заказа" onClose={handleCloseOrder}>
-                    <OrderDetails />
+            <>
+                <Switch location={background || location}>
+                    <Route exact path={'/'}>
+                {!ingredientsFailed && !ingredientsRequest &&(
+                    <main className={appStyles.main}>
+                        <DndProvider backend={HTML5Backend}>
+                            <BurgerIngredients />
+                            <BurgerConstructor onClick={openOrderDetails}/>
+                        </DndProvider>
+                    </main>
+                )}
+                    </Route >
+                    <ProtectedRoute onlyAuth={true} exact path={'/login'}>
+                        <Login />
+                    </ProtectedRoute>
+                    <ProtectedRoute onlyAuth={true} exact path={'/register'}>
+                        <Register />
+                    </ProtectedRoute>
+                    <ProtectedRoute onlyAuth={true} exact path={'/forgot-password'}>
+                        <ForgotPassword />
+                    </ProtectedRoute>
+                    <ProtectedRoute onlyAuth={true} exact path={'/reset-password'}>
+                        <ResetPassword />
+                    </ProtectedRoute>
+                    <ProtectedRoute exact path={'/profile'}>
+                        <Profile />
+                    </ProtectedRoute>
+                    <Route path={'/ingredients/:id'}>
+                        <IngredientDetails />
+                    </Route>
+                </Switch>
+
+            { background && (
+                <Route path='/ingredients/:id'>
+                <Modal title="Детали ингредиентов" onClose={handleCloseOrder}>
+                    <IngredientDetails />
                 </Modal>
+                </Route>
             )}
-            {openModelIngredient && (
-                <Modal title="Детали ингредиентов" onClose={handleDetailsModal}>
-                    <IngredientDetails ingredient={openModelIngredient} />
-                </Modal>
-            )}
+            </>
+                {orderReducer && (
+                    <Modal title="Детали заказа" onClose={handleCloseOrder}>
+                        <OrderDetails />
+                    </Modal>
+                )}
         </div>
     )
 }

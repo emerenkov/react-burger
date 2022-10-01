@@ -23,7 +23,6 @@ export function getOrder (order) {  //order need add
                 type: GET_ORDER_SUCCESS,
                 orderNumber: res.order.number, // order need add
             });
-            console.log(res.order.number);
         })
             .catch((err) => {
                 dispatch({

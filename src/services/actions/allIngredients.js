@@ -16,7 +16,7 @@ export function getAllIngredients () {
                     type: GET_ALL_INGREDIENTS_SUCCESS,
                     ingredients: res.data,
                 });
-                console.log(res);
+                // console.log(res);
             })
             .catch(err => {
                 dispatch({

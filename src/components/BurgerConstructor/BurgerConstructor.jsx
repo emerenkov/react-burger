@@ -7,6 +7,7 @@ import emptyBun from '../../images/empty.png'
 import {getOrder} from "../../services/actions/order";
 import {useDrop} from "react-dnd";
 import {addBun, deleteItem} from "../../services/actions/ingredientsInConstructor";
+import {useHistory} from "react-router-dom";
 
 
 
@@ -15,6 +16,7 @@ const BurgerConstructor = () => {
     const element = useSelector(store => store.burgerConstructorReducer.element);
     const bun = useSelector(store => store.burgerConstructorReducer.bun);
     const productsId = useSelector(store => store.burgerConstructorReducer.productsId);
+    const user = useSelector(store => store.registration.user);
 
     const price = useMemo(() => {
         return (
@@ -24,9 +26,11 @@ const BurgerConstructor = () => {
     }, [bun, element]);
 
     const dispatch = useDispatch();
+    const history = useHistory();
 
     const orderModal = (id) => {
-        dispatch(getOrder(id));
+        user && dispatch(getOrder(id));
+        !user && history.push('/login');
     }
 
     const [{ isHover }, drop] = useDrop({
