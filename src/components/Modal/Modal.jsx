@@ -4,8 +4,8 @@ import modalStyles from './Modal.module.css';
 import ModalOverlay from '../ModalOverlay/ModalOverlay';
 import { CloseIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import PropType from 'prop-types';
-import {useSelector} from "react-redux";
-import {ingredientReducer} from "../../services/reducers/ingredient";
+// import {useSelector} from "react-redux";
+// import {ingredientReducer} from "../../services/reducers/ingredient";
 
 
 const rootModalContainer = document.querySelector('#modals');

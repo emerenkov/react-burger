@@ -1,9 +1,11 @@
 import React, {useEffect, useRef, useState} from 'react';
 import profileStyles from './profile.module.css';
-import {NavLink} from "react-router-dom";
+import {NavLink, Route, Switch, useLocation} from "react-router-dom";
 import {Button, Input, PasswordInput} from "@ya.praktikum/react-developer-burger-ui-components";
 import {getDataUser, logoutUser, updateUserInformation} from "../../services/actions/registration";
 import {useDispatch, useSelector} from "react-redux";
+import {ProfileData} from "../profileData/profileData";
+import {UserOrders} from "../userOrders/userOrders";
 
 const Profile = () => {
     const user = useSelector(store => store.registration.user)
@@ -15,7 +17,6 @@ const Profile = () => {
 
     const nameRef = useRef(null);
     const loginRef = useRef(null);
-    // const passwordRef = useRef(null);
 
     const nameClick  = () => {
         setTimeout(() => nameRef.current.focus(), 0)
@@ -24,10 +25,6 @@ const Profile = () => {
     const loginClick  = () => {
         setTimeout(() => loginRef.current.focus(), 0)
     }
-
-    // const passwordClick  = () => {
-    //     setTimeout(() => passwordRef.current.focus(), 0)
-    // }
 
     const inputName = (e) => {
         setNameProfile(e.target.value);
@@ -45,6 +42,10 @@ const Profile = () => {
         const outToken = localStorage.getItem('token');
         dispatch(logoutUser(outToken));
     }
+
+    //_____________________________________________________________________________________
+    // const location = useLocation();
+    // const background = location.state?.background;
 
     const saveSubmit = (e) => {
         e.preventDefault();
@@ -139,6 +140,14 @@ const Profile = () => {
                     <Button disabled={!(nameProfile && loginProfile && passwordProfile)} htmlType="submit" type="primary" size="medium">Сохранить</Button>
                 </div>
             </form>
+            {/*<Switch location={background || location}>*/}
+            {/*    /!*<Route path={'/profile'}>*!/*/}
+            {/*    /!*    <ProfileData  />*!/*/}
+            {/*    /!*</Route>*!/*/}
+            {/*    <Route path={'/profile/orders'}>*/}
+            {/*        <UserOrders />*/}
+            {/*    </Route>*/}
+            {/*</Switch>*/}
         </main>
         )
 }

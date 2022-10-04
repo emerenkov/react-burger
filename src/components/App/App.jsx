@@ -10,7 +10,7 @@ import {useSelector, useDispatch} from "react-redux";
 import {getAllIngredients} from "../../services/actions/allIngredients";
 import { DndProvider } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
-import {closeModalIngredient, openModelIngredient} from "../../services/actions/ingredient";
+// import {closeModalIngredient, openModelIngredient} from "../../services/actions/ingredient";
 import {closeWindowOrder} from "../../services/actions/order";
 import { Route, Switch, useHistory, useLocation} from "react-router-dom";
 import Login from "../../pages/login/login";
@@ -21,6 +21,11 @@ import Profile from "../../pages/profile/profile";
 import { getDataUser, updateUserToken, checkUserAuth } from '../../services/actions/registration';
 import { getCookie } from "../../utils/cookie";
 import {ProtectedRoute} from "../../pages/protectedRoure/protectedRoure";
+import {Page404} from "../../pages/page404/page404";
+import {UserOrders} from "../../pages/userOrders/userOrders";
+import {OrderIngredient} from "../../pages/orderIngredient/orderIngredient";
+import {OrderIngredientId} from "../../pages/orderIngredientId/orderIngredientId";
+import {Feed} from "../../pages/feed/feed";
 
 
 const App = () => {
@@ -28,11 +33,14 @@ const App = () => {
     const  orderReducer  = useSelector(store => store.orderReducer.orderNumber);
 
     const user = useSelector(store => store.registration.user);
-    const auth = useSelector(store => store.registration.auth);
     const dispatch = useDispatch();
     const location = useLocation();
     const history = useHistory();
     const background = location.state?.background;
+    // const info = useSelector(store => store);
+    // console.log('store',info);
+    // const total = useSelector((state) => state);
+    // console.log('state',total);
 
     const cookie = getCookie('token');
     const refreshToken = localStorage.getItem('token');
@@ -62,7 +70,7 @@ const App = () => {
         if (!user && refreshToken && cookie ) {
             dispatch(getDataUser());
         }
-        if (!cookie && getTokenSuccess) {
+        if (!cookie && refreshToken) {
             dispatch(updateUserToken());
         }
         if (cookie && getTokenSuccess && refreshToken && !user) {
@@ -101,17 +109,48 @@ const App = () => {
                     <ProtectedRoute exact path={'/profile'}>
                         <Profile />
                     </ProtectedRoute>
+                    <ProtectedRoute exact path='/profile/orders'>
+                        <UserOrders />
+                    </ProtectedRoute>
+                    <Route exact path='/profile/orders/:id'>
+                        <OrderIngredientId />
+                    </Route>
                     <Route path={'/ingredients/:id'}>
                         <IngredientDetails />
+                    </Route>
+                    <Route exact path='/feed'>
+                        <Feed />
+                    </Route>
+                    <Route exact path='/feed/:id'>
+                        <OrderIngredientId />
+                    </Route>
+                    <Route >
+                        <Page404 />
                     </Route>
                 </Switch>
 
             { background && (
+                <>
                 <Route path='/ingredients/:id'>
                 <Modal title="Детали ингредиентов" onClose={handleCloseOrder}>
                     <IngredientDetails />
                 </Modal>
                 </Route>
+
+                    <Route
+                        path='/feed/:id'>
+                        <Modal title='' onClose={handleCloseOrder}>
+                            <OrderIngredient />
+                        </Modal>
+                    </Route>
+
+                    <Route
+                        path='/profile/orders/:id'>
+                        <Modal title='' onClose={handleCloseOrder}>
+                            <OrderIngredient />
+                        </Modal>
+                </Route>
+                </>
             )}
             </>
                 {orderReducer && (

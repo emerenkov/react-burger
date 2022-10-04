@@ -68,7 +68,7 @@ export function authorizationUser(email, password) {
                     type: AUTHORIZATION_SUCCESS,
                 });
             })
-            .catch((err) => {
+            .catch( () => {
                 dispatch({
                     type: AUTHORIZATION_FAILED,
                 });
@@ -88,7 +88,7 @@ export function getDataUser() {
                 payload: res.user,
             });
         })
-            .catch((err) => {
+            .catch(() => {
                 dispatch({
                     type: DATA_USER_FAILED
                 });
@@ -103,12 +103,13 @@ export function updateUserInformation(email, password, name) {
         });
         updateUser(email, password, name)
             .then((res) => {
+                console.log(res);
                 dispatch({
                     type: UPDATE_DATA_USER_SUCCESS,
                     payload: res.user,
                 });
             })
-            .catch((err) => {
+            .catch(() => {
                 dispatch({
                     type: UPDATE_DATA_USER_FAILED})
             });
@@ -122,6 +123,7 @@ export function registrationNewUser (email, password, name) {
         });
         registrationUser(email, password, name)
             .then((res) =>{
+                console.log(res);
                 const authToken = res.accessToken.split('Bearer ')[1];
                 setCookie('token', authToken);
                 localStorage.setItem('token', res.refreshToken);
@@ -130,7 +132,7 @@ export function registrationNewUser (email, password, name) {
                     payload: res.user,
                 })
             })
-            .catch((err) => {
+            .catch(() => {
                 dispatch({
                     type: REGISTRATION_USER_FAILED
                 });
@@ -145,6 +147,7 @@ export function updateUserToken () {
         })
         newToken()
             .then((res) => {
+                console.log(res);
                 const authToken = res.accessToken.split('Bearer ')[1];
                 setCookie('token', authToken);
                 localStorage.setItem('token', res.refreshToken);
@@ -152,7 +155,7 @@ export function updateUserToken () {
                     type: UPDATE_USER_TOKEN_SUCCESS
                 })
             })
-            .catch((err) => {
+            .catch(() => {
                 dispatch({
                     type: UPDATE_USER_TOKEN_FAILED
                 })
@@ -173,7 +176,7 @@ export function logoutUser(outToken) {
                     type: LOGOUT_SUCCESS
                 })
             })
-            .catch(err=>{
+            .catch(() =>{
                 dispatch({
                     type: LOGOUT_FAILED
                 });
