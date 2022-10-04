@@ -4,22 +4,20 @@ import {useParams, useRouteMatch} from 'react-router-dom';
 import {CurrencyIcon} from '@ya.praktikum/react-developer-burger-ui-components';
 import orderIngredientStyle from './orderIngredient.module.css';
 
-//Один заказ
 export const OrderIngredient = () => {
     const {id} = useParams();
     let match = useRouteMatch();
     const profilePath = '/profile/orders/:id';
     let isProfile = match.path === profilePath;
 
-    const allOrders = useSelector(store => store.wsReducer.orders);
-    const myOrders = useSelector(store => store.wsUserReducer.orders).slice();
+    const allOrders = useSelector(store => store.wsReducer.orders).slice();
+    const myOrders = useSelector(store => store.wsUserReducer.orders);
     let orders = isProfile ? myOrders : allOrders;
 
     const ingredients = useSelector((store) => store.burgerIngredientReducer.ingredients);
     const order = orders?.find((order) => order._id === id);
     const knowIngredient = order?.ingredients.map((orderIngredient) => ingredients.find((ingredient) => ingredient._id === orderIngredient))
 
-    //Функция для использование подсчёта стоимости
     const price = () => {
         let sum = 0;
         knowIngredient?.forEach((ingredient) => {
@@ -30,7 +28,7 @@ export const OrderIngredient = () => {
         });
         return sum;
     };
-    //Изменение даты
+
     const formatDate = (string) => {
         return new Date(string).toLocaleString();
     }
