@@ -57,7 +57,7 @@ const App = () => {
 
     const handleCloseOrder = () => {
         dispatch(closeWindowOrder());
-        history.replace('/');
+        history.goBack();
     };
 
     const openOrderDetails = () => {
