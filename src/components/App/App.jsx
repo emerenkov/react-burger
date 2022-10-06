@@ -26,6 +26,7 @@ import {UserOrders} from "../../pages/userOrders/userOrders";
 import {OrderIngredient} from "../../pages/orderIngredient/orderIngredient";
 import {OrderIngredientId} from "../../pages/orderIngredientId/orderIngredientId";
 import {Feed} from "../../pages/feed/feed";
+import {dataUser} from "../../utils/api";
 
 
 const App = () => {
@@ -45,6 +46,11 @@ const App = () => {
     const cookie = getCookie('token');
     const refreshToken = localStorage.getItem('token');
     const getTokenSuccess = useSelector(store => store.registration.getTokenSuccess)
+
+    useEffect(() => {
+        const userr = dataUser();
+        console.log(userr, 'user APP')
+    }, [])
 
 
     useEffect(() => {
@@ -112,9 +118,9 @@ const App = () => {
                     <ProtectedRoute exact path='/profile/orders'>
                         <UserOrders />
                     </ProtectedRoute>
-                    <Route exact path='/profile/orders/:id'>
+                    <ProtectedRoute exact path='/profile/orders/:id'>
                         <OrderIngredientId />
-                    </Route>
+                    </ProtectedRoute>
                     <Route path={'/ingredients/:id'}>
                         <IngredientDetails />
                     </Route>

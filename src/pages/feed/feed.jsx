@@ -4,6 +4,8 @@ import feedStyles from './feed.module.css';
 import { Orders } from '../orders/orders';
 import { OrdersInfo } from '../orderInfo/orderInfo';
 import { wsConnectionOpen, wsConnectionClosed } from '../../services/actions/wsAction';
+import {getAllIngredients} from "../../services/actions/allIngredients";
+import {checkUserAuth} from "../../services/actions/registration";
 
 export const Feed = () => {
     const dispatch = useDispatch()

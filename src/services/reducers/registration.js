@@ -32,6 +32,7 @@ import {
     RESET_PASSWORD_FAILED,
 
     AUTH_CHECKED,
+    CHECK_AUTH_CHECKED,
 } from "../actions/registration";
 
 const initialState = {
@@ -80,6 +81,11 @@ export const registration = (state = initialState, action) => {
             ...state,
               auth: true,
           }
+        case CHECK_AUTH_CHECKED:
+            return {
+                ...state,
+                auth: false,
+            }
         case AUTHORIZATION_REQUEST:
             return {
                 ...state,

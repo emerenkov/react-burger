@@ -2,10 +2,11 @@ import React, {useEffect, useRef, useState} from 'react';
 import profileStyles from './profile.module.css';
 import {NavLink, Route, Switch, useLocation} from "react-router-dom";
 import {Button, Input, PasswordInput} from "@ya.praktikum/react-developer-burger-ui-components";
-import {getDataUser, logoutUser, updateUserInformation} from "../../services/actions/registration";
+import {checkUserAuth, getDataUser, logoutUser, updateUserInformation} from "../../services/actions/registration";
 import {useDispatch, useSelector} from "react-redux";
-import {ProfileData} from "../profileData/profileData";
-import {UserOrders} from "../userOrders/userOrders";
+import {dataUser} from "../../utils/api";
+// import {ProfileData} from "../profileData/profileData";
+// import {UserOrders} from "../userOrders/userOrders";
 
 const Profile = () => {
     const user = useSelector(store => store.registration.user)
@@ -17,6 +18,11 @@ const Profile = () => {
 
     const nameRef = useRef(null);
     const loginRef = useRef(null);
+
+    useEffect(() => {
+        const userr = dataUser();
+        console.log(userr, 'user profile')
+    }, [])
 
     const nameClick  = () => {
         setTimeout(() => nameRef.current.focus(), 0)
@@ -43,10 +49,6 @@ const Profile = () => {
         dispatch(logoutUser(outToken));
     }
 
-    //_____________________________________________________________________________________
-    // const location = useLocation();
-    // const background = location.state?.background;
-
     const saveSubmit = (e) => {
         e.preventDefault();
         dispatch(updateUserInformation(loginProfile, passwordProfile, nameProfile));
@@ -59,9 +61,10 @@ const Profile = () => {
         setPasswordProfile('');
     }
 
-    useEffect(() => {
-        dispatch(getDataUser());
-    }, [dispatch])
+    // useEffect(() => {
+    //     // dispatch(getDataUser());
+    //     dispatch(checkUserAuth());
+    // }, [dispatch])
 
     return (
         <main className={profileStyles.block}>
@@ -140,14 +143,6 @@ const Profile = () => {
                     <Button disabled={!(nameProfile && loginProfile && passwordProfile)} htmlType="submit" type="primary" size="medium">Сохранить</Button>
                 </div>
             </form>
-            {/*<Switch location={background || location}>*/}
-            {/*    /!*<Route path={'/profile'}>*!/*/}
-            {/*    /!*    <ProfileData  />*!/*/}
-            {/*    /!*</Route>*!/*/}
-            {/*    <Route path={'/profile/orders'}>*/}
-            {/*        <UserOrders />*/}
-            {/*    </Route>*/}
-            {/*</Switch>*/}
         </main>
         )
 }

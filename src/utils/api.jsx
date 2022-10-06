@@ -7,12 +7,7 @@ export const api = {
     }
 };
 
-// export const parseResponse = (res) => {
-//     if (res.ok) {
-//         return res.json();
-//     }
-//     return Promise.reject(new Error(`Произошла ошибка со статус-кодом ${res.status}`));
-// }
+
 
 const parseResponse = (res) => (res.ok ? res.json() : res.json().then((err) => Promise.reject(err)));
 
@@ -132,65 +127,3 @@ export const resetPassword = (password, token) => {
         .then(res => parseResponse(res));
 }
 
-// async function fetchWithRefresh(url, options) {
-//     try {
-//         const res = await fetch (url, options);
-//         const data = await parseResponse(res);
-//         return data;
-//     } catch (err) {
-//
-//         if (!err.success) {
-//             const refreshData = await newToken();
-//             if (!refreshData.success) {
-//                 return Promise.reject(refreshData);
-//             }
-//             const token = refreshData.token.split('Bearer ')[1];
-//
-//             localStorage.setItem('refreshToken', refreshData.token);
-//             setCookie('accessToken', token);
-//
-//             options.headers.authorization = refreshData.token;
-//             const res = await fetch(url, {
-//                 ...options,
-//                 headers: {
-//                     ...options.headers,
-//                     authorization: refreshData.token,
-//                 }
-//             });
-//
-//             const data = await parseResponse(res);
-//             return data;
-//         } else {
-//             return Promise.reject(err);
-//         }
-//     }
-// };
-
-// async function fetchWithRefresh(url, options) {
-//     try {
-//         const res = await fetch(url, options);
-//         // const data = await parseResponse(res);
-//         return await parseResponse(res);
-//     } catch (err) {
-//         if (err.message === "jwt expired") {
-//             const refreshData = await newToken();
-//             if (!refreshData.success) {
-//                 return Promise.reject(refreshData);
-//             }
-//             localStorage.setItem('token', refreshData.newToken);
-//             const accessToken = refreshData.token.split('Bearer ')[1];
-//             setCookie('accessToken', refreshData.accessToken);
-//             options.headers.authorization = refreshData.accessToken;
-//             const res = await fetch(url, {
-//                 ...options,
-//                 headers: {
-//                     ...options.headers,
-//                     authorization: refreshData.accessToken,
-//                 }
-//             });
-//             return await parseResponse(res);
-//         } else {
-//             return Promise.reject(err);
-//         }
-//     }
-// }
