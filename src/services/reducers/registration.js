@@ -32,6 +32,7 @@ import {
     RESET_PASSWORD_FAILED,
 
     AUTH_CHECKED,
+    CHECK_AUTH_CHECKED,
 } from "../actions/registration";
 
 const initialState = {
@@ -80,17 +81,23 @@ export const registration = (state = initialState, action) => {
             ...state,
               auth: true,
           }
+        case CHECK_AUTH_CHECKED:
+            return {
+                ...state,
+                auth: false,
+            }
         case AUTHORIZATION_REQUEST:
             return {
                 ...state,
                 authRequest: true,
                 error: false,
+                authFailed: false,
             };
         case AUTHORIZATION_SUCCESS:
             return {
                 ...state,
+                authFailed: false,
                 authRequest: false,
-                authSuccess: true,
                 user: action.payload,
                 auth: true,
                 error: false,
@@ -99,7 +106,6 @@ export const registration = (state = initialState, action) => {
             return {
                 ...state,
                 authRequest: false,
-                authSuccess: false,
                 authFailed: true,
                 error: true,
             };
@@ -170,20 +176,20 @@ export const registration = (state = initialState, action) => {
         case REGISTRATION_USER_REQUEST:
             return {
                 ...state,
-                registrationNewUserRequest: true
+                registrationNewUserRequest: true,
+                registrationNewUserFailed: false,
             };
         case REGISTRATION_USER_SUCCESS:
             return {
                 ...state,
                 registrationNewUserRequest: false,
-                registrationNewUserSuccess: true,
                 user: action.payload,
                 auth: true,
+                registrationNewUserFailed: false,
             };
         case REGISTRATION_USER_FAILED:
             return {
                 ...state,
-                registrationNewUserSuccess: false,
                 registrationNewUserRequest: false,
                 registrationNewUserFailed: true
             };

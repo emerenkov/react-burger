@@ -20,7 +20,7 @@ const AddHeader = () => {
                     </li>
                     <li className={`${appHeaderStyles.item} mr-30 ml-5 `}>
                         <NavLink className={`${appHeaderStyles.links} `}
-                                 activeClassName={appHeaderStyles.linkActive} exact to='/profile/orders'>
+                                 activeClassName={appHeaderStyles.linkActive} exact to='/feed'>
                             <ListIcon type="primary" />
                             <span className="ml-2 text text_type_main-default">Лента заказов</span>
                         </NavLink>

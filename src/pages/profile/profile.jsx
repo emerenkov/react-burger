@@ -1,9 +1,12 @@
 import React, {useEffect, useRef, useState} from 'react';
 import profileStyles from './profile.module.css';
-import {NavLink} from "react-router-dom";
+import {NavLink, Route, Switch, useLocation} from "react-router-dom";
 import {Button, Input, PasswordInput} from "@ya.praktikum/react-developer-burger-ui-components";
-import {getDataUser, logoutUser, updateUserInformation} from "../../services/actions/registration";
+import {checkUserAuth, getDataUser, logoutUser, updateUserInformation} from "../../services/actions/registration";
 import {useDispatch, useSelector} from "react-redux";
+import {dataUser} from "../../utils/api";
+// import {ProfileData} from "../profileData/profileData";
+// import {UserOrders} from "../userOrders/userOrders";
 
 const Profile = () => {
     const user = useSelector(store => store.registration.user)
@@ -15,7 +18,11 @@ const Profile = () => {
 
     const nameRef = useRef(null);
     const loginRef = useRef(null);
-    // const passwordRef = useRef(null);
+
+    useEffect(() => {
+        const userr = dataUser();
+        console.log(userr, 'user profile')
+    }, [])
 
     const nameClick  = () => {
         setTimeout(() => nameRef.current.focus(), 0)
@@ -24,10 +31,6 @@ const Profile = () => {
     const loginClick  = () => {
         setTimeout(() => loginRef.current.focus(), 0)
     }
-
-    // const passwordClick  = () => {
-    //     setTimeout(() => passwordRef.current.focus(), 0)
-    // }
 
     const inputName = (e) => {
         setNameProfile(e.target.value);
@@ -58,9 +61,10 @@ const Profile = () => {
         setPasswordProfile('');
     }
 
-    useEffect(() => {
-        dispatch(getDataUser());
-    }, [dispatch])
+    // useEffect(() => {
+    //     // dispatch(getDataUser());
+    //     dispatch(checkUserAuth());
+    // }, [dispatch])
 
     return (
         <main className={profileStyles.block}>

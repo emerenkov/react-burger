@@ -20,7 +20,6 @@
     width: 100%;
     display: grid;
     grid-template-columns: max-content max-content max-content max-content;
-    /*justify-items: start;*/
     align-items: center;
 }
 

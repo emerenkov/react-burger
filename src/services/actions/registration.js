@@ -42,17 +42,31 @@ export const RESET_PASSWORD_SUCCESS = 'RESET_PASSWORD_SUCCESS';
 export const RESET_PASSWORD_FAILED = 'RESET_PASSWORD_FAILED';
 
 export const AUTH_CHECKED = 'AUTH_CHECKED';
+export const CHECK_AUTH_CHECKED = 'CHECK_AUTH_CHECKED'
 
-export const checkUserAuth = () => (dispatch) => {
-    if(getCookie('authToken')) {
-        dispatch(getDataUser())
-            .finally(() => {
-                dispatch({type: AUTH_CHECKED});
-            })
-    } else {
-        dispatch({type: AUTH_CHECKED});
-    }
-}
+// export const checkUserAuth = () => (dispatch) => {
+//     if(getCookie('authToken')) {
+//         dispatch(getDataUser())
+//             .finally(() => {
+//                 dispatch({type: AUTH_CHECKED});
+//             })
+//     } else {
+//         dispatch({type: AUTH_CHECKED});
+//     }
+// }
+
+export const checkUserAuth = () => {
+    return function (dispatch) {
+        const accessToken = getCookie('accessToken');
+
+        dispatch({ type: AUTH_CHECKED });
+        if (!!accessToken) {
+            dispatch(getDataUser());
+        }
+
+        dispatch({ type: CHECK_AUTH_CHECKED });
+    };
+};
 
 export function authorizationUser(email, password) {
     return function (dispatch) {
@@ -68,7 +82,7 @@ export function authorizationUser(email, password) {
                     type: AUTHORIZATION_SUCCESS,
                 });
             })
-            .catch((err) => {
+            .catch( () => {
                 dispatch({
                     type: AUTHORIZATION_FAILED,
                 });
@@ -88,7 +102,7 @@ export function getDataUser() {
                 payload: res.user,
             });
         })
-            .catch((err) => {
+            .catch(() => {
                 dispatch({
                     type: DATA_USER_FAILED
                 });
@@ -103,12 +117,13 @@ export function updateUserInformation(email, password, name) {
         });
         updateUser(email, password, name)
             .then((res) => {
+                console.log(res);
                 dispatch({
                     type: UPDATE_DATA_USER_SUCCESS,
                     payload: res.user,
                 });
             })
-            .catch((err) => {
+            .catch(() => {
                 dispatch({
                     type: UPDATE_DATA_USER_FAILED})
             });
@@ -122,6 +137,7 @@ export function registrationNewUser (email, password, name) {
         });
         registrationUser(email, password, name)
             .then((res) =>{
+                console.log(res);
                 const authToken = res.accessToken.split('Bearer ')[1];
                 setCookie('token', authToken);
                 localStorage.setItem('token', res.refreshToken);
@@ -130,7 +146,7 @@ export function registrationNewUser (email, password, name) {
                     payload: res.user,
                 })
             })
-            .catch((err) => {
+            .catch(() => {
                 dispatch({
                     type: REGISTRATION_USER_FAILED
                 });
@@ -145,6 +161,7 @@ export function updateUserToken () {
         })
         newToken()
             .then((res) => {
+                console.log(res);
                 const authToken = res.accessToken.split('Bearer ')[1];
                 setCookie('token', authToken);
                 localStorage.setItem('token', res.refreshToken);
@@ -152,7 +169,7 @@ export function updateUserToken () {
                     type: UPDATE_USER_TOKEN_SUCCESS
                 })
             })
-            .catch((err) => {
+            .catch(() => {
                 dispatch({
                     type: UPDATE_USER_TOKEN_FAILED
                 })
@@ -173,7 +190,7 @@ export function logoutUser(outToken) {
                     type: LOGOUT_SUCCESS
                 })
             })
-            .catch(err=>{
+            .catch(() =>{
                 dispatch({
                     type: LOGOUT_FAILED
                 });
@@ -221,3 +238,41 @@ export function resetPasswordUser (password, token) {
             });
     }
 }
+
+// export const fetchWithRefresh = (request, ...requestParams) => {
+//     return function (dispatch) {
+//         const refreshToken = localStorage.getItem('refreshToken');
+//
+//         console.log('fetchWithRefresh');
+//         if (!refreshToken) {
+//             throw new Error('Token does not exist in storage');
+//         } else {
+//             dispatch({ type: UPDATE_USER_TOKEN_REQUEST });
+//             console.log(refreshToken);
+//             api
+//                 .refreshToken(refreshToken)
+//                 .then((res) => {
+//                     console.log('fetchWithRefresh - refresh');
+//                     setCookie('accessToken', res.accessToken.split('Bearer ')[1]);
+//                     localStorage.setItem('refreshToken', res.refreshToken);
+//                     dispatch({ type: UPDATE_USER_TOKEN_SUCCESS });
+//                     return res;
+//                 })
+//                 .then((res) => {
+//                     console.log('fetchWithRefresh - repeat request');
+//                     console.log(...requestParams, 'params');
+//
+//                     requestParams = { ...requestParams, accessToken: res.accessToken };
+//
+//                     dispatch(request(requestParams));
+//                 })
+//                 .catch((err) => {
+//                     console.log('fetchWithRefresh - in err');
+//
+//                     dispatch(logOut());
+//                     dispatch({ type: UPDATE_USER_TOKEN_FAILED, err: err.message });
+//                     return Promise.reject(err);
+//                 });
+//         }
+//     };
+// };

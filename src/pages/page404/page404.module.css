@@ -1,0 +1,24 @@
+.block {
+    margin: 200px auto;
+    display: flex;
+    flex-direction: column;
+}
+
+.text {
+    display: block;
+    font-size: 40px;
+    color: #8585AD;
+    align-items: center;
+}
+
+.link {
+    margin: 40px auto;
+    text-decoration: none;
+    color: #4C4CFF;
+    font-size: 18px;
+    cursor: pointer;
+}
+
+.link:hover {
+    color: #2F80ED;
+}

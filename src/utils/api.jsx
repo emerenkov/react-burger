@@ -1,4 +1,4 @@
-import {getCookie} from "./cookie";
+import {getCookie, setCookie} from "./cookie";
 
 export const api = {
     url: 'https://norma.nomoreparties.space/api',
@@ -7,12 +7,9 @@ export const api = {
     }
 };
 
-export const parseResponse = (res) => {
-    if (res.ok) {
-        return res.json();
-    }
-    return Promise.reject(new Error(`Произошла ошибка со статус-кодом ${res.status}`));
-}
+
+
+const parseResponse = (res) => (res.ok ? res.json() : res.json().then((err) => Promise.reject(err)));
 
 export const getData = () => {
     return fetch(`${api.url}/ingredients`, {
@@ -24,7 +21,10 @@ export const getData = () => {
 
 export const setData = (order) => {
     return fetch(`${api.url}/orders`, {
-        headers: api.headers,
+        headers: {
+            'Content-Type': 'application/json',
+            Authorization: 'Bearer ' + getCookie('token')
+        },
         method: 'POST',
         body: JSON.stringify({ingredients: order})
     })
@@ -58,16 +58,16 @@ export const registrationUser = (email, password, name) => {
 
 export const dataUser = () => {
     return fetch( `${api.url}/auth/user`, {
+        method: 'GET',
         headers: {'Content-Type': 'application/json; charset=utf-8',
             Authorization: 'Bearer ' + getCookie('token')},
-        method: 'GET'
     })
         .then(res => parseResponse(res))
 }
 
 export const updateUser = (email, password, name) => {
     return fetch(`${api.url}/auth/user`, {
-        headers: {'Content-Type': 'application/json; charset=utf-8',
+        headers: {'Content-Type': 'application/json',
             Authorization: 'Bearer ' + getCookie('token')},
         method: 'PATCH',
         body: JSON.stringify({
@@ -82,7 +82,7 @@ export const updateUser = (email, password, name) => {
 export const newToken = () => {
     return fetch(`${api.url}/auth/token`, {
         headers: {
-            'Content-Type': 'application/json; charset=utf-8',
+            'Content-Type': 'application/json',
             Authorization: 'Bearer ' + getCookie('token')
         },
         method: 'POST',
@@ -126,3 +126,4 @@ export const resetPassword = (password, token) => {
     })
         .then(res => parseResponse(res));
 }
+
