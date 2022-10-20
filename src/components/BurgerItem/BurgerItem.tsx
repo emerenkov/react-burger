@@ -2,17 +2,12 @@ import React, {FC, useRef} from "react";
 import {ConstructorElement, DragIcon} from "@ya.praktikum/react-developer-burger-ui-components";
 import ConstructorStyle from './BurgerItem.module.css'
 import {resetItem} from "../../services/actions/ingredientsInConstructor";
-import {useDrag, useDrop} from "react-dnd";
+import {useDrag, useDrop, XYCoord} from "react-dnd";
 import {TConstructorDetails, useAppDispatch} from "../../utils/types";
 
-
-
 const BurgerItem: FC<TConstructorDetails> = ({el, index, handleDelete}) => {
-
     const dispatch = useAppDispatch();
-
     const id = el.uId;
-
     const ref = useRef(null);
 
     const [{ handlerId }, drop] = useDrop({
@@ -32,17 +27,18 @@ const BurgerItem: FC<TConstructorDetails> = ({el, index, handleDelete}) => {
             if (dragIndex === hoverIndex) {
                 return;
             }
-            // const hoverBoundingRect = ref.current?.getBoundingClientRect();
+            // const hoverBoundingRect = ref.current?.getBoundingClientRect:an();
             // const hoverMiddleY = (hoverBoundingRect.bottom - hoverBoundingRect.top) / 2;
             // const clientOffset = monitor.getClientOffset();
             // const hoverClientY = clientOffset.y - hoverBoundingRect.top;
-
+            //
             // if (dragIndex < hoverIndex && hoverClientY < hoverMiddleY) {
             //     return;
             // }
             // if (dragIndex > hoverIndex && hoverClientY > hoverMiddleY) {
             //     return;
             // }
+
             dispatch(resetItem(dragIndex, hoverIndex));
             index = hoverIndex;
         },
@@ -64,7 +60,6 @@ const BurgerItem: FC<TConstructorDetails> = ({el, index, handleDelete}) => {
 
     return (
         <li className={ConstructorStyle.items} data-handler-id={handlerId} ref={ref} style={{ opacity }}>
-            {/*<div>*/}
             <DragIcon type="primary" />
             <ConstructorElement
                 text={el.name}
@@ -72,17 +67,9 @@ const BurgerItem: FC<TConstructorDetails> = ({el, index, handleDelete}) => {
                 thumbnail={el.image_mobile}
                 handleClose={() => handleDelete(el)}
                 />
-            {/*</div>*/}
         </li>
 
     )
 }
-// from 71 line, deleted className={'pr-10'}
-
-// BurgerItem.propTypes = {
-//     el: types.isRequired,
-//     index: PropTypes.number.isRequired,
-//     handleDelete: PropTypes.func.isRequired,
-// }
 
 export default BurgerItem;
