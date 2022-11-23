@@ -1,47 +1,59 @@
-# Getting Started with Create React App
-`Для просмотра сайта ->` [REACT-BURGER](https://react-burger-virid.vercel.app)
+#### Название проекта
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# ___React-Burger___
 
-## Available Scripts
+---
 
-In the project directory, you can run:
+#### [Ссылка на макет в Figma](https://www.figma.com/file/ocw9a6hNGeAejl4F3G9fp8/React-_-%D0%9F%D1%80%D0%BE%D0%B5%D0%BA%D1%82%D0%BD%D1%8B%D0%B5-%D0%B7%D0%B0%D0%B4%D0%B0%D1%87%D0%B8-(3-%D0%BC%D0%B5%D1%81%D1%8F%D1%86%D0%B0)_external_link?node-id=0%3A1)
 
-### `npm start`
+---
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+#### [Ссылка на проект](https://react-burger-virid.vercel.app)
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+---
 
-### `npm test`
+#### Описание
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+- Одностраничный веб-сайт космической бургерной.
 
-### `npm run build`
+___
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+#### Используемые технологии
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+- html5 / css3 (GridLayout & Flexbox) и [React Developer Burger UI Components](https://yandex-praktikum.github.io/react-developer-burger-ui-components/docs/)
+- [React DnD](https://react-dnd.github.io/react-dnd/about)
+- [immutability-helper](https://www.npmjs.com/package/immutability-helper?activeTab=dependents)
+- TypeScript
+- React
+- Redux
+- сборщик Webpack (втч : минификация HTML,CSS,JS)
+- код поделен на модули
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+---
 
-### `npm run eject`
+#### Автор
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+- Меренков Евгений
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+---
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+#### Команды
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+```bash
+# старт проекта
+npm run start
 
-## Learn More
+# сборка проекта
+npm run build
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+# запуск eslint
+npm run lint
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+# запуск stylelint
+npm run stylelint
+
+# проверка типов
+npm run types
+```
+
+[Наверх](#top)
